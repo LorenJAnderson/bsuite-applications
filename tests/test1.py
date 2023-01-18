@@ -6,7 +6,7 @@ from bsuite.utils import gym_wrapper
 print(sweep.SWEEP)
 print(sweep.BANDIT_NOISE)
 
-for bsuite_id in sweep.BANDIT_NOISE:
+for bsuite_id in sweep.DEEP_SEA:
   env = bsuite.load_from_id(bsuite_id)
   print('bsuite_id={}, settings={}, num_episodes={}'
         .format(bsuite_id, sweep.SETTINGS[bsuite_id], env.bsuite_num_episodes))
@@ -40,7 +40,7 @@ for episode in range(env.bsuite_num_episodes):
 
 
 from bsuite.logging import csv_load
-DF, _ = csv_load.load_bsuite(SAVE_PATH_RAND)
+DF, _ = csv_load.load_bsuite('reports/bsuite/full')
 from bsuite.experiments import summary_analysis
 BSUITE_SCORE = summary_analysis.bsuite_score(DF)
 print(BSUITE_SCORE)
