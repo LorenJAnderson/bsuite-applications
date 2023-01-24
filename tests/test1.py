@@ -6,7 +6,7 @@ from bsuite.utils import gym_wrapper
 print(sweep.SWEEP)
 print(sweep.BANDIT_NOISE)
 
-for bsuite_id in sweep.DEEP_SEA:
+for bsuite_id in sweep.MEMORY_LEN:
   env = bsuite.load_from_id(bsuite_id)
   print('bsuite_id={}, settings={}, num_episodes={}'
         .format(bsuite_id, sweep.SETTINGS[bsuite_id], env.bsuite_num_episodes))
@@ -18,6 +18,7 @@ isinstance(env, gym.Env)
 import numpy as np
 SAVE_PATH_RAND = 'reports/bsuite/rand'
 env = bsuite.load_and_record('bandit_noise/0', save_path=SAVE_PATH_RAND, overwrite=True)
+
 
 for episode in range(env.bsuite_num_episodes):
   timestep = env.reset()
@@ -41,6 +42,7 @@ for episode in range(env.bsuite_num_episodes):
 
 from bsuite.logging import csv_load
 DF, _ = csv_load.load_bsuite('reports/bsuite/full')
+print(DF.size)
 from bsuite.experiments import summary_analysis
 BSUITE_SCORE = summary_analysis.bsuite_score(DF)
 print(BSUITE_SCORE)
