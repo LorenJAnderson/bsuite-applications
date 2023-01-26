@@ -5,8 +5,7 @@ from bsuite.utils import gym_wrapper
 
 import pandas as pd
 
-SAVE_PATH = 'data/experiment_1'
-TOTAL_TIME_STEPS = 10_000
+SAVE_PATH = 'data3/experiment_1'
 
 from multiprocessing import Pool
 
