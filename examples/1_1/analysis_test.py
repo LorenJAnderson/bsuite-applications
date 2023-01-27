@@ -156,7 +156,7 @@ def bsuite_radar_plot(summary_data: pd.DataFrame,
       ax.set_axisbelow(False)
       plt.show()
 
-experiments = {'dqn': 'data/experiment_1', 'dqn2': 'data2/experiment_2'}
+experiments = {'dqn': 'data/experiment_1', 'dqn2': 'data3/experiment_1'}
 DF, SWEEP_VARS = csv_load.load_bsuite(experiments)
 BSUITE_SCORE = summary_analysis.bsuite_score(DF, SWEEP_VARS)
 BSUITE_SUMMARY = summary_analysis.ave_score_by_tag(BSUITE_SCORE, SWEEP_VARS)
