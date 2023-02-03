@@ -8,7 +8,7 @@ from bsuite.experiments import summary_analysis
 from bsuite.logging import csv_load
 
 SAVE_PATH_DQN = 'reports/bsuite/rllib'
-env = gym_wrapper.GymFromDMEnv(bsuite.load_and_record('umbrella_length/5', save_path=SAVE_PATH_DQN, overwrite=True))
+env = gym_wrapper.GymFromDMEnv(bsuite.load_and_record('cartpole/0', save_path=SAVE_PATH_DQN, overwrite=True))
 print(env.action_space, env.observation_space)
 model = DQN("MlpPolicy", env, verbose=0)
 model.learn(total_timesteps=59_999)
