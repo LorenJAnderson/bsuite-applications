@@ -31,11 +31,11 @@
 ...
 
 ### 0.1 Background
-The current state of reinforcement learning (RL) theory notably lags progress in practice, especially in non-trivial problems. There are examples of programs learning to play Go from scratch at the level past a professional (cite), learning to navigate diverse video games from raw pixels (cite), and (robotics example). While these algorithms have some foundational roots in theory (gradient descent, TD learning, Q-learning watkins?(cite convergence)), the authors point out a fact quite apparent to practitioners in the field: "The current theory of deep RL is still in its infancy" (cite).  Such theory is prized, since a strong theory can help provide insight and direction for improving known algorithms, while providing hints of where to focus new research.
+The current state of reinforcement learning (RL) theory notably lags progress in practice, especially in challenging problems. There are examples of deep reinforcement learning (DRL) agents learning to play Go from scratch at the professional level ([Silver et al., 2016](https://www.nature.com/articles/nature16961)), learning to navigate diverse video games from raw pixels ([Mnih et al., 2015](https://www.nature.com/articles/nature14236)), and learning to manipulate objects with robotic hands ([Andrychowicz et al., 2020](https://journals.sagepub.com/doi/10.1177/0278364919887447)). While these algorithms have some foundational roots in theory, including gradient descent ([Bottou, 2010](https://link.springer.com/chapter/10.1007/978-3-7908-2604-3_16)), TD learning ([Sutton, 1988](https://link.springer.com/article/10.1007/BF00115009)), and Q-learning ([Watkins, 1992](https://link.springer.com/article/10.1007/BF00992698)), the authors of *bsuite* point out that, "The current theory of deep reinforcement learning is still in its infancy" ([Osband et al., 2020](https://iclr.cc/virtual_2020/poster_rygf-kSYwH.html)).  A strong theory is prized since it can help provide insight and direction for improving known algorithms, while hinting at future research directions.
 
-Fortunately, deep learning can provide a blueprint of the interaction between theoretical and practical improvements. During the 'neural network winter', deep learning techniques were disregarded in favor of more theoretically sound convex loss methods. It was only until the creation of benchmark problems mainly for image recognition where deep learning methods proved more powerful that deep learning became a mainline focus of research. Consequently, a renewed interested in deep learning theory followed shortly after, bolstered by the wealth of applied research. Due to the lack of theory in RL, one possible avenue is to follow such blueprint and create well-defined and vetted benchmarks for the understanding of RL algorithms.
+Fortunately, the plain deep learning (DL) provides a blueprint of the interaction between theoretical and practical improvements. During the 'neural network winter', deep learning techniques were disregarded in favor of more theoretically sound convex loss methods ([Cortes & Vapnik, 1995](https://link.springer.com/article/10.1007/BF00994018)), even though the main ideas and successful demonstrations existed many years previously. It was only until the creation of benchmark problems mainly for image recognition ([Krizhevsky et al., 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)) when deep learning methods proved more powerful that deep learning earned the research spotlight. Consequently, a renewed interested in deep learning theory followed shortly after ([Kawaguchi, 2016](https://proceedings.neurips.cc/paper/2016/hash/f2fc990265c712c49d51a18a32b39f0c-Abstract.html); [Bartlett et al., 2017](https://proceedings.neurips.cc/paper/2017/hash/b22b257ad0519d4500539da3c8bcf4dd-Abstract.html); [Belkin et al., 2019](https://www.pnas.org/doi/abs/10.1073/pnas.1903070116)), bolstered by the considerable wealth of applied research. Due to the lack of theory in DRL and the proximity of the DL and DRL research fields, <span style="color: red;">one possible avenue is to follow the blueprint laid out by deep learning reserach and create well-defined and vetted benchmarks for the understanding of DRL algorithms</span>.
 
-To this end, the trend of RL benchmarks has been to increase in complexity and perhaps publicity of the problem. The earliest such benchmarks were simple MDPs that took non-trivial algorithms to solve, such as Cartpole (cite) and MountainCar (cite). Other environments proved to be more diagnostic by directly testing characteristics such as exploration (Riverswim) and temporal abstraction (Taxi). More modern environments have usually proved somewhat difficult (e.g. not achieve perfect play) for humans such as the Atari Learning Environment (ALE cite) and board games such as Go (cite). The corresponding achievements were highly publicized due to the superhuman performance of the algorithms, prompting superhuman performance to be a benchmark threshold in its own light.
+To this end, the trend of RL benchmarks has been an increase in overall complexity and perhaps the publicity potential. The earliest such benchmarks were simple MDPs that served as basic testbeds with fairly obvious solutions, such as Cartpole ([Barto et al., 1983](https://ieeexplore.ieee.org/abstract/document/6313077)) and MountainCar ([Moore, 1990](https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.html)). Other environments proved to be more diagnostic by directly testing characteristics such as RiverSwim ([Strehl & Littman, 2008](https://www.sciencedirect.com/science/article/pii/S0022000008000767)) for exploration and Taxi ([Dietterich, 2000](https://www.jair.org/index.php/jair/article/view/10266)) for temporal abstraction. More modern environments such as the ATARI Learning Environment ([Bellemare et al., 2013](https://www.jair.org/index.php/jair/article/view/10819)) and board games such as Chess, Go, and Shogi ([Silver et al., 2019](https://www.science.org/doi/abs/10.1126/science.aar6404)) prove difficult for humans, with even the best humans unable to achieve perfect play. The corresponding achievements were highly publicized ([Silver et al., 2016](https://www.nature.com/articles/nature16961); [Mnih et al., 2015](https://www.nature.com/articles/nature14236)) due to the superhuman performance of the agents, vaulting superhuman performance to be a standard benchmark on arbitrary environments in its own light.
 
 ### 0.2 BSuite Summary
 
@@ -79,4 +79,38 @@ We stress that these examples are not meant to 'wow' the reader or produce SOTA 
 
 ## References
 
-[Practice](https://en.wikipedia.org/wiki/Hobbit#Lifestyle)
+[Silver, David, et al. "Mastering the game of Go with deep neural networks and tree search." nature 529.7587 (2016): 484-489.](https://www.nature.com/articles/nature16961)
+
+[Mnih, Volodymyr, et al. "Human-level control through deep reinforcement learning." nature 518.7540 (2015): 529-533.](https://www.nature.com/articles/nature14236)
+
+[Andrychowicz, OpenAI: Marcin, et al. "Learning dexterous in-hand manipulation." The International Journal of Robotics Research 39.1 (2020): 3-20.](https://journals.sagepub.com/doi/10.1177/0278364919887447)
+
+[Bottou, Léon. "Large-scale machine learning with stochastic gradient descent." Proceedings of COMPSTAT'2010: 19th International Conference on Computational Statistics, Paris France, August 22-27, 2010 Keynote, Invited and Contributed Papers. Physica-Verlag HD, 2010.](https://link.springer.com/chapter/10.1007/978-3-7908-2604-3_16)
+
+[Sutton, Richard S. "Learning to predict by the methods of temporal differences." Machine learning 3 (1988): 9-44.](https://link.springer.com/article/10.1007/BF00115009)
+
+[Watkins, Christopher JCH, and Peter Dayan. "Q-learning." Machine learning 8 (1992): 279-292.](https://link.springer.com/article/10.1007/BF00992698)
+
+[Osband, Ian, et al. "Behaviour Suite for Reinforcement Learning." 8th International Conference on Learning Representations, 2020.](https://iclr.cc/virtual_2020/poster_rygf-kSYwH.html)
+
+[Cortes, Corinna, and Vladimir Vapnik. "Support-vector networks." Machine learning 20 (1995): 273-297.](https://link.springer.com/article/10.1007/BF00994018)
+
+[Krizhevsky, Alex, Ilya Sutskever, and Geoffrey E. Hinton. "Imagenet classification with deep convolutional neural networks." Proceedings of the 25th International Conference on Neural Information Processing Systems - Volume 1, 2012](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html)
+
+[Kawaguchi, Kenji. "Deep learning without poor local minima." Advances in neural information processing systems 29 (2016).](https://proceedings.neurips.cc/paper/2016/hash/f2fc990265c712c49d51a18a32b39f0c-Abstract.html)
+
+[Bartlett, Peter L., Dylan J. Foster, and Matus J. Telgarsky. "Spectrally-normalized margin bounds for neural networks." Advances in neural information processing systems 30 (2017).](https://proceedings.neurips.cc/paper/2017/hash/b22b257ad0519d4500539da3c8bcf4dd-Abstract.html)
+
+[Belkin, Mikhail, et al. "Reconciling modern machine-learning practice and the classical bias–variance trade-off." Proceedings of the National Academy of Sciences 116.32 (2019): 15849-15854.](https://www.pnas.org/doi/abs/10.1073/pnas.1903070116)
+
+[Barto, Andrew G., Richard S. Sutton, and Charles W. Anderson. "Neuronlike adaptive elements that can solve difficult learning control problems." IEEE transactions on systems, man, and cybernetics 5 (1983): 834-846.](https://ieeexplore.ieee.org/abstract/document/6313077)
+
+[Moore, Andrew William. Efficient memory-based learning for robot control. No. UCAM-CL-TR-209. University of Cambridge, Computer Laboratory, 1990.](https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-209.html)
+
+[Strehl, Alexander L., and Michael L. Littman. "An analysis of model-based interval estimation for Markov decision processes." Journal of Computer and System Sciences 74.8 (2008): 1309-1331.](https://www.sciencedirect.com/science/article/pii/S0022000008000767)
+
+[Dietterich, Thomas G. "Hierarchical reinforcement learning with the MAXQ value function decomposition." Journal of artificial intelligence research 13 (2000): 227-303.](https://www.jair.org/index.php/jair/article/view/10266)
+
+[Bellemare, Marc G., et al. "The arcade learning environment: An evaluation platform for general agents." Journal of Artificial Intelligence Research 47 (2013): 253-279.](https://www.jair.org/index.php/jair/article/view/10819)
+
+[Silver, David, et al. "A general reinforcement learning algorithm that masters chess, shogi, and Go through self-play." Science 362.6419 (2018): 1140-1144.](https://www.science.org/doi/abs/10.1126/science.aar6404)
