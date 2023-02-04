@@ -1,15 +1,15 @@
 ## Overview
-**Abstract**:  In 2019, researchers at DeepMind published a suite of reinforcement learning environments called Behavior Suite for Reinforcement Learning, or bsuite. Each environment is designed to directly test a core capability of a general reinforcement learning agent, such as its ability to generalize from past experience or handle delayed rewards. The authors claim that bsuite can be used to benchmark agents and bridge the gap between theoretical and applied reinforcement learning understanding. In this blog post, we extend their work by providing specific examples of how bsuite can address common challenges faced by reinforcement learning practitioners during the development process. Our work offers pragmatic guidance to researchers and highlights future research directions in reproducible reinforcement learning.
+**Abstract**:  In 2019, researchers at DeepMind published a suite of reinforcement learning environments called *Behavior Suite for Reinforcement Learning*, or *bsuite*. Each environment is designed to directly test a core capability of a general reinforcement learning agent, such as its ability to generalize from past experience or handle delayed rewards. The authors claim that *bsuite* can be used to benchmark agents and bridge the gap between theoretical and applied reinforcement learning understanding. In this blog post, we extend their work by providing specific examples of how *bsuite* can address common challenges faced by reinforcement learning practitioners during the development process. Our work offers pragmatic guidance to researchers and highlights future research directions in reproducible reinforcement learning.
 
 **Intended Audience**: We expect that the reader has a basic understanding of deep learning, reinforcement learning, and common deep reinforcement learning algorithms (e.g. DQN, A2C, PPO). Readers without such knowledge may not fully appreciate this work.
 
-**Goals**: concise understanding of paper (cite blogpost track goals) (architecture vs how to use)
+**Goals**: The reader should grasp the fundamentals of *bsuite*, understand our motivation for bridging the gap between theoretical and applied reinforcement learning, identify various ideas for incorporating *bsuite* into the reinforcement learning development cycle, and observe possible research directions in reproducible reinforcement learning. 
 
 **Reading Time**: ~30-40 Minutes
 
 **Important Links**: [Paper (PDF)](https://openreview.net/pdf?id=rygf-kSYwH), [OpenReview](https://openreview.net/forum?id=rygf-kSYwH), [GitHub](https://github.com/deepmind/bsuite)
 
-**Table of Contents**: 
+**Table of Contents**:
 
 0. [Introduction](#0-introduction)
 
@@ -25,7 +25,7 @@
 3. [Hyperparameter Tuning](#3-hyperparameter-tuning)
 4. [Testing and Debugging](#4-testing-and-debugging)
 5. [Model Improvement](#5-model-improvement)
-6. [Conclusion](#6-conclusion)
+6. [Conclusion](#6-conclusion)<br />
 
 ## 0. Introduction
 ...
@@ -76,3 +76,7 @@ We stress that these examples are not meant to 'wow' the reader or produce SOTA 
 ## 5. Model Improvement
 
 ## 6. Conclusion
+
+## References
+
+[Practice](https://en.wikipedia.org/wiki/Hobbit#Lifestyle)
