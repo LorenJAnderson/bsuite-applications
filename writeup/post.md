@@ -30,10 +30,44 @@
 
    1.4 [Summary and Future Work](#14-summary-and-future-work)
 2. [Preprocessing Selection](#2-preprocessing-selection)
+   
+   2.1 [Choosing a Better Model vs. Preprocessing](#21-choosing-a-better-model-vs-preprocessing)
+
+   2.2 [Verification of Preprocessing](#22-verification-of-preprocessing)
+
+   2.3 [Other](#23-other)
+
+   2.4 [Summary and Future Work](#24-summary-and-future-work)
 3. [Hyperparameter Tuning](#3-hyperparameter-tuning)
+   
+   3.1 [Unintuitive Hyperparameters](#31)
+   
+   3.2 [Promising Ranges of Hyperparamters](#32-promising-ranges-of-hyperparameters)
+
+   3.3 [Pace of Annealing Hyperparameters](#33-pace-of-annealing-hyperparameters)
+
+   3.4 [Summary and Future Work](#34-summary-and-future-work)
 4. [Testing and Debugging](#4-testing-and-debugging)
+
+   4.1 [Missing Add-on](#41-missing-add-on)
+
+   4.2 [Incorrect Constant](#42-incorrect-constant)
+
+   4.3 [OTS Algorithm Testing](#43-ots-algorithm-testing)
+
+   4.4 [Summary and Future Work](#44-summary-and-future-work)
 5. [Model Improvement](#5-model-improvement)
-6. [Conclusion](#6-conclusion)<br />
+   
+   5.1 [Increasing Network Complexity](#51-increasing-network-complexity)
+
+   5.2 [Decoupling or Adding Confidence](#52-decoupling-or-adding-confidence)
+
+   5.3 [Determining Necessary Improvements](#53-determining-necessary-improvements)
+
+   5.4 [Summary and Future Work](#54-summary-and-future-work)
+6. [Conclusion](#6-conclusion)
+
+
 
 ## 0. Introduction
 This introduction section provides the necessary background and motivation to understand the importance of our contribution. The background describes how deep learning provides a blueprint for bridging theory to practice, and then discusses traditional reinforcement learning benchmarks. The *bsuite* summary section provides a high-level overview of the core capabilities tested by *bsuite*, an example output (radar plot), an example environment, and a comparison against traditional benchmark environments. The information from these first two sections was primarily distilled from the original *bsuite* publication. In the motivation section presents arguments for increasing the wealth of documented *bsuite* examples, with references to the paper and the reviews. Finally, the contribution section showcases four distinct contributions of our work and provides our rationale for the experiment setups and the content of the remainder of the paper.   
@@ -83,7 +117,7 @@ Due to computational necessity, we created a subset of *bsuite*, which we will r
 We stress that the below examples are not meant to amaze the reader or exhibit state-of-the-art research. <span style="color: red;">The main products of this work are the practicality and diversity of ideas in the examples</span>, while the examples are primarily for basic validation and illustrative purposes. Moreover, these experiments use modest compute power and showcase the effectiveness of *bsuite* in the low-compute regime. Each example has a benefit such as saving development time, shorten compute time, increase performance, and lessen frustration of the practitioner, among other benefits. Discussion of these savings are relegated to the individual categories, and to maintain any sense of brevity, we now begin discussion of the examples.
 
 ## 1. Initial Model Choice
-The reinforcement learining development cycle typically begins with selecting or being given an underlying environment. Perhaps the first question in the cycle is as follows, "*Which underlying RL model should I choose to best tackle this environment, given my resources*?" Resources can range from the hardware (e.g model size on the GPU), to temporal constraints, to availability of off-the-shelf algorithms, to maximimum difficulty of agent implementation. In this section, we illustrate that, while optimally answering the above question may remain out of reach, *bsuite* can be used to provide quantitative answers to those questions.
+The reinforcement learining development cycle typically begins with selecting or being given an underlying environment. Perhaps the first question in the cycle is as follows, "*Which underlying RL model should I choose to best tackle this environment, given my resources*?" Resources can range from the hardware (e.g model size on the GPU), to temporal constraints, to availability of off-the-shelf algorithms ([Liang et al., 2018](https://proceedings.mlr.press/v80/liang18b); [Raffin et al., 2021](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)), to maximimum difficulty of agent implementation. In this section, we illustrate that, while optimally answering the above question may remain out of reach, *bsuite* can be used to provide quantitative answers to those questions.
 
 ### 1.1 Comparing Baseline Algorithms
 
@@ -105,12 +139,37 @@ Many environments come with various complexities, such as high-dimensional, unsc
 ### 2.4 Summary and Future Work
 
 ## 3. Hyperparameter Tuning
+After selecting a model and determining any preprocessing of the environment, the next step is to train the agent on the environment and gauge its competency. During the training process, initial choices of hyperparameters can play a large role in the agent performance ([Andrychowicz et al., 2021](https://arxiv.org/abs/2006.05990)), ranging from how to explore, how quickly the model should learn from experience, and the length of time that actions are considered to influence rewards. Due to their importance, a question is, "*How can I choose hyperparameters to yield the best performance, given a model?*" In this section, we show how *bsuite* can be used for validation and efficiency of tuning hyperparameters.
 
+### 3.1 Unintuitive Hyperparameters
 
+### 3.2 Promising Ranges of Hyperparameters
+
+### 3.3 Pace of Annealing Hyperparameters
+
+### 3.4 Summary and Future Work
 
 ## 4. Testing and Debugging
+Known to every practitioner, testing and debugging a program is neraly unavoidable. A common question in the RL development cycle is, "*What tests can I perform to verify that my agent is running as intended?*" Due to the prevalence of silent bugs in RL code and long runtimes, quick unit tests can be invaluable for the practitioner, as shown in successor work to *bsuite* ([Rajan & Hutter, 2019](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/19-NeurIPS-Workshop-MDP_Playground.pdf)). In this section, we show how *bsuite* can be used as a sanity check the expectations and assumptions of the implementation, which was mentioned as a use case of *bsuite* in the paper.
+
+### 4.1 Missing Add-on
+
+### 4.2 Incorrect Constant
+
+### 4.3 OTS Algorithm Testing
+
+### 4.4 Summary and Future Work
 
 ## 5. Model Improvement
+A natural milestone in the RL development cycle is getting an algorithm running bug-free with notable signs of learning. A common follow-up question to ask is "*How can I improve my model to yield better performance?*" The practitioner may consider choosing an entirely new model and repeating some of the above steps; usually, a more enticing option is directly improving the existing model by reusing its core structure and only making minor additions or modifications, an approach taken in the state-of-the-art RAINBOW DQN algorithm ([Hessel et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11796)). In this section, we discuss ideas regarding the improvement of pre-existing somewhat competent models.
+
+### 5.1 Increasing Network Complexity
+
+### 5.2 Decoupling or Adding Confidence
+
+### 5.3 Determining Necessary Improvements
+
+### 5.4 Summary and Future Work
 
 ## 6. Conclusion
 
@@ -171,3 +230,11 @@ Many environments come with various complexities, such as high-dimensional, unsc
 [Raffin, Antonin, et al. "Stable-baselines3: Reliable reinforcement learning implementations." The Journal of Machine Learning Research 22.1 (2021): 12348-12355.](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)
 
 [Machado, Marlos C., et al. "Revisiting the arcade learning environment: Evaluation protocols and open problems for general agents." Journal of Artificial Intelligence Research 61 (2018): 523-562.](https://www.jair.org/index.php/jair/article/view/11182)
+
+[Andrychowicz, Marcin, et al. "What matters in on-policy reinforcement learning? a large-scale empirical study." arXiv preprint arXiv:2006.05990 (2020).](https://arxiv.org/abs/2006.05990)
+
+[Rajan, Raghu, and Frank Hutter. "Mdp playground: Meta-features in reinforcement learning." NeurIPS Deep RL Workshop. 2019.](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/19-NeurIPS-Workshop-MDP_Playground.pdf)
+
+[Liang, Eric, et al. "RLlib: Abstractions for distributed reinforcement learning." International Conference on Machine Learning. PMLR, 2018.](https://proceedings.mlr.press/v80/liang18b)
+
+[Hessel, Matteo, et al. "Rainbow: Combining improvements in deep reinforcement learning." Proceedings of the AAAI conference on artificial intelligence. Vol. 32. No. 1. 2018.](https://ojs.aaai.org/index.php/AAAI/article/view/11796)

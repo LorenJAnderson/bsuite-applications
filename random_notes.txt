@@ -14,3 +14,15 @@ Elaborate on complexity
 
 0.2
 when do we remove core from 'core capability'
+
+1.0
+Focus on making the references a big part of that paragraph
+
+3.0
+Change reference to correct format
+
+4.0
+Change MDP Playground Link
+
+5.0
+No reference?
