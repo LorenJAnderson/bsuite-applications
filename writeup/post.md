@@ -67,6 +67,12 @@
    5.4 [Summary and Future Work](#54-summary-and-future-work)
 6. [Conclusion](#6-conclusion)
 
+   6.1 [Summary](#61-summary)
+
+   6.2 [Green Computing Statement](#62-green-computing-statement)
+
+   6.3 [Inclusive Computing Statement](#63-inclusive-computing-statement)
+
 
 
 ## 0. Introduction
@@ -172,6 +178,23 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 ### 5.4 Summary and Future Work
 
 ## 6. Conclusion
+The above sections complete the main ideas of this paper. We now provide a hindsight summary of our work. Afterwards, we supply statements on green and inclusive computing regarding our contribution. 
+
+### 6.1 Summary
+
+Traditional RL benchmarks contain many confounding variables, which makes post-analysis of agent performance somewhat opaque. In contrast, *bsuite*  provides targeted environments that are meant to gauge agent prowess in one or few core capabilities. The goal of *bsuite* is meant to bridge the gap between practical theory and practical algorithms, yet there currently is no database or list of example use cases for the practitioner. Furthermore, *bsuite* is poised to be a standard RL benchmark for years to come due to its acceptance in a top-tier venue, well-structured codebase, multiple tutorials, and over 100 citations in the past few years in a relatively small field. 
+
+Our work extends *bsuite* by providing 15 concrete examples of its use, with 3 examples in 5 categories. Each category section provides at least one possible avenue of related future work or research. We aim to help propel *bsuite*, and more generally methodical and reproducible RL research, into the mainstream through our explicit examples with simple code. With a diverse set of examples to choose from, we intend applied practitioners to understand more use cases, apply and document the use of *bsuite* in their experiments, and ultimately help bridge the gap between practical theory and practical algorithms. 
+
+### 6.2 Green Computing Statement
+
+The use of *bsuite* can help find directed improvements in algorithms, from high-level model selection and improvement to lower-level debugging, testing, and hyperparameter tuning. Due to the current climate crisis, we feel that thoroughly-tested and accessible ideas that can greatly reduce computational cost should be promoted to a wide audience of researchers.
+
+### 6.3 Inclusive Computing Statement
+
+Many of the ideas in *bsuite* and this post are most helpful in the areas of low compute resources, due to more directed areas of improvment and selection. Due to the seemingly-increasing gap between compute power of various research teams, we feel that thoroughly-tested and accessible ideas that can greatly benefit teams with meagre compute power should be promoted to a wide audience of researchers.
+
+
 
 ## References
 
