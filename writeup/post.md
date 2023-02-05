@@ -21,6 +21,14 @@
 
     0.4 [Contribution](#04-contribution)
 1. [Initial Model Choice](#1-initial-model-choice)
+
+   1.1 [Comparing Baseline Algorithms](#11-comparing-baseline-algorithms)
+
+   1.2 [Comparing Off-the-Shelf Implementations](#12-comparing-off-the-shelf-implementations)
+
+   1.3 [Gauging Diminishing Returns of Agent Complexity](#13-gauging-diminishing-returns-of-agent-complexity)
+
+   1.4 [Summary and Future Work](#14-summary-and-future-work)
 2. [Preprocessing Selection](#2-preprocessing-selection)
 3. [Hyperparameter Tuning](#3-hyperparameter-tuning)
 4. [Testing and Debugging](#4-testing-and-debugging)
@@ -75,10 +83,30 @@ Due to computational necessity, we created a subset of *bsuite*, which we will r
 We stress that the below examples are not meant to amaze the reader or exhibit state-of-the-art research. <span style="color: red;">The main products of this work are the practicality and diversity of ideas in the examples</span>, while the examples are primarily for basic validation and illustrative purposes. Moreover, these experiments use modest compute power and showcase the effectiveness of *bsuite* in the low-compute regime. Each example has a benefit such as saving development time, shorten compute time, increase performance, and lessen frustration of the practitioner, among other benefits. Discussion of these savings are relegated to the individual categories, and to maintain any sense of brevity, we now begin discussion of the examples.
 
 ## 1. Initial Model Choice
+The reinforcement learining development cycle typically begins with selecting or being given an underlying environment. Perhaps the first question in the cycle is as follows, "*Which underlying RL model should I choose to best tackle this environment, given my resources*?" Resources can range from the hardware (e.g model size on the GPU), to temporal constraints, to availability of off-the-shelf algorithms, to maximimum difficulty of agent implementation. In this section, we illustrate that, while optimally answering the above question may remain out of reach, *bsuite* can be used to provide quantitative answers to those questions.
+
+### 1.1 Comparing Baseline Algorithms
+
+### 1.2 Comparing Off-the-Shelf Implementations
+
+### 1.3 Gauging Diminishing Returns of Agent Complexity
+
+### 1.4 Summary and Future Work
 
 ## 2. Preprocessing Selection
+Many environments come with various complexities, such as high-dimensional, unscaled observations, unscaled rewards, unnecessary actions, and partially-observable Markov Decision Process (POMDP) dynamics. A natural question to ask is, "*What environment preprocessing techniques will best help my agent attain its goal in this environment*?" While environments sometimes come proprocessed 'out-of-the-box', the classic benchmarking and evaluation paper on *ATARI* ([Machado et al., 2018](https://www.jair.org/index.php/jair/article/view/11182)) states that preprocessing is considered part of the underlying algorithm and is indeed a choice of the practitioner. In this section, we show how *bsuite* can provide insight when selecting the preprocessing methods.
+
+### 2.1 Choosing a Better Model vs. Preprocessing
+
+### 2.2 Verification of Preprocessing
+
+### 2.3 Other
+
+### 2.4 Summary and Future Work
 
 ## 3. Hyperparameter Tuning
+
+
 
 ## 4. Testing and Debugging
 
@@ -141,3 +169,5 @@ We stress that the below examples are not meant to amaze the reader or exhibit s
 [Ceron, Johan Samir Obando, and Pablo Samuel Castro. "Revisiting rainbow: Promoting more insightful and inclusive deep reinforcement learning research." International Conference on Machine Learning. PMLR, 2021.](https://proceedings.mlr.press/v139/ceron21a.html)
 
 [Raffin, Antonin, et al. "Stable-baselines3: Reliable reinforcement learning implementations." The Journal of Machine Learning Research 22.1 (2021): 12348-12355.](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)
+
+[Machado, Marlos C., et al. "Revisiting the arcade learning environment: Evaluation protocols and open problems for general agents." Journal of Artificial Intelligence Research 61 (2018): 523-562.](https://www.jair.org/index.php/jair/article/view/11182)
