@@ -28,6 +28,7 @@ from bsuite.logging import csv_load
 # BSUITE_SUMMARY = summary_analysis.ave_score_by_tag(BSUITE_SCORE, ['basic'])
 # __radar_fig__ = summary_analysis.bsuite_radar_plot(BSUITE_SUMMARY)
 
+experiments = {'vanilla': 'reports/memory1', 'rnn': 'reports/memory2'}
 experiments = {'dqn': 'data3/experiment_1'}
 DF, SWEEP_VARS = csv_load.load_bsuite(experiments)
 BSUITE_SCORE = summary_analysis.bsuite_score(DF, SWEEP_VARS)

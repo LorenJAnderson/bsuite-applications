@@ -1,5 +1,11 @@
 stable-baselines3
-bsuite
+bsuite~=0.3.5
 tensorboard
-tensorflow
+tensorflow~=2.11.0
 sb3-contrib
+gym~=0.21.0
+numpy~=1.19.5
+pandas~=1.4.2
+termcolor~=2.1.0
+matplotlib~=3.5.1
+plotnine~=0.10.1
