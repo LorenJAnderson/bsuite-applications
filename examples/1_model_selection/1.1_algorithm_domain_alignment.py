@@ -7,6 +7,7 @@ Models included in this analysis, all from stable baselines v3: DQN, A2C, PPO
 import argparse
 import multiprocessing
 import os
+import time
 
 from stable_baselines3 import DQN, A2C, PPO
 import bsuite
@@ -25,24 +26,28 @@ MODEL_LOOKUP_BY_ID = dict(
 )
 
 
-def run_single(model_name: str, bsuite_id: str, skip_existing: bool):
+def run_single(model_name: str, bsuite_id: str, overwrite: bool):
     save_path = os.path.join(SAVE_PATH, f"{model_name}_{bsuite_id.split('/')[0]}")
-    final_path = os.path.join(save_path, )
-    if skip_existing and os.path.exists(final_path):
+    final_path = os.path.join(save_path, f"bsuite_id_-_{bsuite_id.replace('/', '-')}.csv")
+    if (not overwrite) and os.path.exists(final_path):
         termcolor.cprint(f"Skipping {model_name} {bsuite_id}", "yellow")
         return
-    base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=True)
+    termcolor.cprint(f"Starting {model_name} {bsuite_id}", "green")
+    tick = time.time()
+    base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=overwrite)
     env = gym_wrapper.GymFromDMEnv(base_env)
     model = MODEL_LOOKUP_BY_ID[model_name]("MlpPolicy", env)
     exp_conf = SWEEP_SETTINGS[bsuite_id]
     model.learn(total_timesteps=exp_conf.time_steps, reset_num_timesteps=exp_conf.reset_timestep)
+    tock = time.time()
+    termcolor.cprint(f"Finished {model_name}-{bsuite_id} in {tock - tick:.2f} seconds", "white", "on_green")
 
 
-def run_parallel(n_jobs, skip_existing):
+def run_parallel(n_jobs, overwrite):
     tasks = []
     for model_name in MODEL_LOOKUP_BY_ID.keys():
         for bsuite_id in SWEEP:
-            tasks.append((model_name, bsuite_id, skip_existing))
+            tasks.append((model_name, bsuite_id, overwrite))
 
     with multiprocessing.Pool(n_jobs) as pool:
         pool.starmap(run_single, tasks)
@@ -51,8 +56,16 @@ def run_parallel(n_jobs, skip_existing):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('-j', '--jobs', help="Num processes to run in parallel", type=int,
-                        default=multiprocessing.cpu_count())
-    parser.add_argument('-f', '--force', help="Overwrite previous outputs", action='store_false', default=True)
+                        default=-1)
+    parser.add_argument('-f', '--force', help="Overwrite previous outputs", action='store_false', default=False)
     args = parser.parse_args()
 
-    run_parallel(args.jobs, not args.force)
+    if args.jobs == -1:
+        args.jobs = multiprocessing.cpu_count()
+
+    termcolor.cprint(f"Running with n_proc={args.jobs}, force={args.force}", "green")
+
+    tick = time.time()
+    run_parallel(args.jobs, args.force)
+    tock = time.time()
+    termcolor.cprint(f"Finished {len(SWEEP)} minisweep experiments in {tock - tick:.2f} seconds", "green")
