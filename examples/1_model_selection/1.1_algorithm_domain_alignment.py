@@ -20,9 +20,9 @@ from bsuite_utils.mini_sweep import SWEEP, SWEEP_SETTINGS
 SAVE_PATH = os.path.join(bsuite_utils.config.RESULTS_PATH, "1_1")
 
 MODEL_LOOKUP_BY_ID = dict(
-    DQN=DQN,
-    A2C=A2C,
-    PPO=PPO,
+    DQN=(DQN, dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)),
+    A2C=(A2C, {}),
+    PPO=(PPO, {}),
 )
 
 
@@ -36,7 +36,8 @@ def run_single(model_name: str, bsuite_id: str, overwrite: bool):
     tick = time.time()
     base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=overwrite)
     env = gym_wrapper.GymFromDMEnv(base_env)
-    model = MODEL_LOOKUP_BY_ID[model_name]("MlpPolicy", env)
+    model_class, kwargs = MODEL_LOOKUP_BY_ID[model_name]
+    model = model_class("MlpPolicy", env, **kwargs)
     exp_conf = SWEEP_SETTINGS[bsuite_id]
     model.learn(total_timesteps=exp_conf.time_steps, reset_num_timesteps=exp_conf.reset_timestep)
     tock = time.time()
