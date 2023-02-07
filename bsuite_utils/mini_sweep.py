@@ -58,8 +58,8 @@ sweep_config = dict(
         'fixed': False
     },
     memory_size={
-        'ids': [0, 4, 8, 12, 16],
-        'time_steps': [30_000] * 5,
+        'ids': [0, 2, 4, 6, 8, 10, 12, 14, 16],
+        'time_steps': [30_000] * 9,
         'fixed': False
     },
     mnist={
