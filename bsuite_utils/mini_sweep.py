@@ -8,18 +8,33 @@ from typing import List, Dict
 
 sweep_config = dict(
     bandit={
-        'ids': list(range(20)),
+        'ids': range(20),
         'time_steps': [10_000] * 20,
         'fixed': False
     },
     bandit_noise={
-        'ids': list(range(20)),
+        'ids': range(20),
         'time_steps': [10_000] * 20,
         'fixed': False
     },
     bandit_scale={
-        'ids': list(range(20)),
+        'ids': range(20),
         'time_steps': [10_000] * 20,
+        'fixed': False
+    },
+    catch={
+        'ids': range(10),
+        'time_steps': [10_000]*10,
+        'fixed': False
+    },
+    catch_noise={
+        'ids': range(10),
+        'time_steps': [10_000]*10,
+        'fixed': False
+    },
+    catch_scale={
+        'ids': range(10),
+        'time_steps': [10_000]*10,
         'fixed': False
     },
     deep_sea={
@@ -47,24 +62,29 @@ sweep_config = dict(
         'time_steps': [30_000] * 5,
         'fixed': False
     },
-    mountain_car={
-        'ids': [0, 1, 2],
-        'time_steps': [1_000_000] * 3,
-        'fixed': True
+    mnist={
+        'ids': range(20),
+        'time_steps': [10_000]*20,
+        'fixed': False,
     },
-    mountain_car_scale={
-        'ids': [0, 4, 8, 12, 16],
-        'time_steps': [1_000_000] * 5,
-        'fixed': True
+    mnist_noise={
+        'ids': range(20),
+        'time_steps': [10_000]*20,
+        'fixed': False,
     },
-    umbrella_length={
-        'ids': [0, 5, 11, 16, 22],
-        'time_steps': [10_000, 60_000, 150_000, 410_000, 1_010_000],
-        'fixed': False
+    mnist_scale={
+        'ids': range(20),
+        'time_steps': [10_000]*20,
+        'fixed': False,
     },
     umbrella_distract={
         'ids': [0, 5, 11, 16, 22],
         'time_steps': [200_000] * 5,
+        'fixed': False
+    },
+    umbrella_length={
+        'ids': [0, 5, 11, 16, 22],
+        'time_steps': [10_000, 60_000, 150_000, 410_000, 1_010_000],
         'fixed': False
     },
 )
