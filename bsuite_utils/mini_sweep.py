@@ -22,21 +22,6 @@ sweep_config = dict(
         'time_steps': [10_000] * 20,
         'fixed': False
     },
-    catch={
-        'ids': range(10),
-        'time_steps': [90_000]*10,
-        'fixed': False
-    },
-    catch_noise={
-        'ids': range(10),
-        'time_steps': [90_000]*10,
-        'fixed': False
-    },
-    catch_scale={
-        'ids': range(10),
-        'time_steps': [90_000]*10,
-        'fixed': False
-    },
     deep_sea={
         'ids': [0, 5, 10, 15, 20],
         'time_steps': [100_000, 200_000, 300_000, 400_000, 500_000],
