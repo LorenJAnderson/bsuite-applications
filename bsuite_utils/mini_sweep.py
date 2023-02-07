@@ -24,17 +24,17 @@ sweep_config = dict(
     },
     catch={
         'ids': range(10),
-        'time_steps': [10_000]*10,
+        'time_steps': [90_000]*10,
         'fixed': False
     },
     catch_noise={
         'ids': range(10),
-        'time_steps': [10_000]*10,
+        'time_steps': [90_000]*10,
         'fixed': False
     },
     catch_scale={
         'ids': range(10),
-        'time_steps': [10_000]*10,
+        'time_steps': [90_000]*10,
         'fixed': False
     },
     deep_sea={
