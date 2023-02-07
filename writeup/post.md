@@ -1,9 +1,14 @@
 ## Overview
+
+**Authors**: {Redacted for peer-review}
+
 **Abstract**:  In 2019, researchers at DeepMind published a suite of reinforcement learning environments called *Behavior Suite for Reinforcement Learning*, or *bsuite*. Each environment is designed to directly test a core capability of a general reinforcement learning agent, such as its ability to generalize from past experience or handle delayed rewards. The authors claim that *bsuite* can be used to benchmark agents and bridge the gap between theoretical and applied reinforcement learning understanding. In this blog post, we extend their work by providing specific examples of how *bsuite* can address common challenges faced by reinforcement learning practitioners during the development process. Our work offers pragmatic guidance to researchers and highlights future research directions in reproducible reinforcement learning.
 
 **Intended Audience**: We expect that the reader has a basic understanding of deep learning, reinforcement learning, and common deep reinforcement learning algorithms (e.g. DQN, A2C, PPO). Readers without such knowledge may not fully appreciate this work.
 
 **Goals**: The reader should grasp the fundamentals of *bsuite*, understand our motivation for bridging the gap between theoretical and applied reinforcement learning, identify various ideas for incorporating *bsuite* into the reinforcement learning development cycle, and observe possible research directions in reproducible reinforcement learning.
+
+**ICLR Paper:** [Osband, Ian, et al. "Behaviour Suite for Reinforcement Learning." 8th International Conference on Learning Representations, 2020.](https://iclr.cc/virtual_2020/poster_rygf-kSYwH.html)
 
 **Reading Time**: ~30-40 Minutes
 
@@ -95,7 +100,7 @@ An example algorithm is Deep Sea that is targeted towards assessing exploration 
 
 The **challenge** of this environment is that an agent must choose to explore and receive some negative rewards by going to the right in order to reach the large positive reward of reaching the treasure. This environment **targets** the exploration power of the agent through its **simplistic** implementation by ensuring that a successful agent will explore the state space and not 'give in' to the greedy action of moving left after a couple of episodes. Furthermore, this environment can provide a non-binary score of exploration by **scaling** the environment size $N$ and determining where the agent starts to fail. Finally, the implementation of the environment yields **fast** computation, allowing multiple, quick runs. These five aforementioned qualities are encompassed by all *bsuite* environments, and we contrast such environments with traditional benchmark environments in the below table.
 
-| Quality         | BSuite Environment                                                                                 | Traditional Benchmark Environment                                                                      |
+| Quality         | bsuite Environment                                                                                 | Traditional Benchmark Environment                                                                      |
 |-----------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | **Targeted**    | Performance on environment is directly related with one or few core capabilities.                  | Performance on environment subtly related to many or all core capabilities.                            |
 | **Simple**      | Removes confounding factors related to performance.                                                | Exhibits many confounding factors related to performance.                                              |
@@ -194,7 +199,8 @@ The use of *bsuite* can help find directed improvements in algorithms, from high
 
 Many of the ideas in *bsuite* and this post are most helpful in the areas of low compute resources, due to more directed areas of improvment and selection. Due to the seemingly-increasing gap between compute power of various research teams, we feel that thoroughly-tested and accessible ideas that can greatly benefit teams with meagre compute power should be promoted to a wide audience of researchers.
 
-
+## Acknowledgements
+{Redacted for peer-review}
 
 ## References
 
