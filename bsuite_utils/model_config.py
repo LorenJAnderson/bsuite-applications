@@ -5,4 +5,5 @@ import dataclasses
 class ModelConfig:
     name: str
     cls: type
-    kwargs: dict
+    kwargs: dict = dataclasses.field(default_factory=dict)
+
