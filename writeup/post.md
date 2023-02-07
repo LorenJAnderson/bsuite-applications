@@ -100,13 +100,13 @@ An example algorithm is Deep Sea that is targeted towards assessing exploration 
 
 The **challenge** of this environment is that an agent must choose to explore and receive some negative rewards by going to the right in order to reach the large positive reward of reaching the treasure. This environment **targets** the exploration power of the agent through its **simplistic** implementation by ensuring that a successful agent will explore the state space and not 'give in' to the greedy action of moving left after a couple of episodes. Furthermore, this environment can provide a non-binary score of exploration by **scaling** the environment size $N$ and determining where the agent starts to fail. Finally, the implementation of the environment yields **fast** computation, allowing multiple, quick runs. These five aforementioned qualities are encompassed by all *bsuite* environments, and we contrast such environments with traditional benchmark environments in the below table.
 
-| Quality         | bsuite Environment                                                                                 | Traditional Benchmark Environment                                                                      |
-|-----------------|----------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
-| **Targeted**    | Performance on environment is directly related with one or few core capabilities.                  | Performance on environment subtly related to many or all core capabilities.                            |
-| **Simple**      | Removes confounding factors related to performance.                                                | Exhibits many confounding factors related to performance.                                              |
-| **Challenging** | Pushes agents beyond normal range in one or few core capabilities.                                 | Requires competency in many core capabilities but not necessarily past normal range in any capability. |
-| **Scalable**    | Discerns agent's competency of core capabilities through increasingly more difficult environments. | Discerns agent's power through comparing against other algorithms and human performance.               |
-| **Fast**        | Relatively small episode and experiment lengths with low observation complexity.                   | Long episodes with computationally-intensive observations.                                             |
+| Quality         |   Traditional Benchmark Environment  | bsuite Environment |
+|-----------------|-------------------|--------------------|
+| **Targeted**    | Performance on environment subtly related to many or all core capabilities. | Performance on environment is directly related with one or few core capabilities.|
+| **Simple**      | Exhibits many confounding factors related to performance. | Removes confounding factors related to performance. |
+| **Challenging** | Requires competency in many core capabilities but not necessarily past normal range in any capability. | Pushes agents beyond normal range in one or few core capabilities. |
+| **Scalable**    | Discerns agent's power through comparing against other algorithms and human performance. | Discerns agent's competency of core capabilities through increasingly more difficult environments. |
+| **Fast**        | Long episodes with computationally-intensive observations. | Relatively small episode and experiment lengths with low observation complexity. |
 
 
 ### 0.3 Motivation
