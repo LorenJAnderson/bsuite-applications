@@ -1,14 +1,14 @@
 from stable_baselines3 import PPO
-from sb3_contrib.ppo_recurrent import RecurrentPPO
-
 from bsuite_utils.model_config import ModelConfig
 from bsuite_utils.runner import main
 
-experiment_tag = "5_1"
+experiment_tag = "3_1"
+entropy_bonuses = [
+    # 0.0 # default, covered by exp 1_1
+    0.001, 0.01, 0.1
+]
 model_configs = [
-    # Note: already run as part of 1.1
-    # ModelConfig(name="PPO", cls=PPO),
-    ModelConfig(name="PPO_RNN", cls=RecurrentPPO),
+    ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs=dict(ent_coef=x)) for x in entropy_bonuses
 ]
 
 if __name__ == "__main__":

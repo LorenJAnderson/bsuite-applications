@@ -1,14 +1,11 @@
 from stable_baselines3 import PPO
-from sb3_contrib.ppo_recurrent import RecurrentPPO
-
 from bsuite_utils.model_config import ModelConfig
 from bsuite_utils.runner import main
 
-experiment_tag = "5_1"
+experiment_tag = "4_2"
+learning_rates = [1e3]
 model_configs = [
-    # Note: already run as part of 1.1
-    # ModelConfig(name="PPO", cls=PPO),
-    ModelConfig(name="PPO_RNN", cls=RecurrentPPO),
+    ModelConfig(name=f"PPO_lr{x}", cls=PPO, kwargs=dict(learning_rates=x)) for x in learning_rates
 ]
 
 if __name__ == "__main__":

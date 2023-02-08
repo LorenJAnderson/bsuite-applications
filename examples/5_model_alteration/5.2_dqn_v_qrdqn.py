@@ -6,7 +6,8 @@ from bsuite_utils.runner import main
 
 experiment_tag = "5_2"
 model_configs = [
-    ModelConfig(name="DQN", cls=DQN, kwargs=dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)),
+    # Note: already run as part of 1.1
+    # ModelConfig(name="DQN", cls=DQN, kwargs=dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)),
     ModelConfig(name="QRDQN", cls=QRDQN, kwargs=dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)),
 ]
 
