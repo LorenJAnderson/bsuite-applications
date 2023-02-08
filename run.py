@@ -40,7 +40,8 @@ def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrit
     # TODO: don't need both
     model.learn(total_timesteps=exp_conf.time_steps, reset_num_timesteps=exp_conf.reset_timestep)
     tock = time.time()
-    termcolor.cprint(f"Finished {model_conf.name}-{bsuite_id} in {tock - tick:.2f} seconds", _FOOTER_COLOR)
+    termcolor.cprint(f"Finished {model_conf.name}-{bsuite_id} in {tock - tick:.2f} seconds", _FOOTER_COLOR,
+                     attrs=["bold"])
 
 
 def run_parallel(experiment_ids: List[str], results_root: str, n_jobs: int, overwrite: bool):
@@ -70,7 +71,8 @@ def main():
     tick = time.time()
     run_parallel(args.experiments, args.results_dir, args.jobs, args.overwrite)
     tock = time.time()
-    termcolor.cprint(f"Finished {len(SWEEP)} minisweep experiments in {tock - tick:.2f} seconds", _FOOTER_COLOR)
+    termcolor.cprint(f"Finished {len(SWEEP)} minisweep experiments in {tock - tick:.2f} seconds", _FOOTER_COLOR,
+                     attrs=['bold'])
 
 
 def parse_stdin():
