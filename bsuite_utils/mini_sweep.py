@@ -39,7 +39,7 @@ sweep_config = dict(
     },
     memory_len={
         'ids': [0, 5, 11, 16, 22],
-        'time_steps': [20_000, 70_000, 160_000, 420_000, 1_020_000],
+        'time_steps': [20_000, 70_000, 150_000, 410_000, 1_010_000],
         'fixed': False
     },
     memory_size={
@@ -69,7 +69,7 @@ sweep_config = dict(
     },
     umbrella_length={
         'ids': [0, 5, 11, 16, 22],
-        'time_steps': [10_000, 60_000, 150_000, 410_000, 1_010_000],
+        'time_steps': [10_000, 60_000, 140_000, 400_000, 1_000_000],
         'fixed': False
     },
 )
