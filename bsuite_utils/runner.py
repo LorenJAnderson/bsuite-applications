@@ -23,7 +23,7 @@ import bsuite_utils.config
 
 def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrite: bool):
     # Note: Assumes model is a stable baselines model
-    save_path = os.path.join(save_path, f"{model_conf.name}_{bsuite_id.split('/')[0]}")
+    save_path = os.path.join(save_path, model_conf.name)
     final_path = os.path.join(save_path, f"bsuite_id_-_{bsuite_id.replace('/', '-')}.csv")
     if (not overwrite) and os.path.exists(final_path):
         termcolor.cprint(f"Skipping {model_conf.name} {bsuite_id}", "yellow")
@@ -53,7 +53,7 @@ def parse_stdin():
     parser = argparse.ArgumentParser()
     parser.add_argument('-j', '--jobs', help="Num processes to run in parallel", type=int,
                         default=-1)
-    parser.add_argument('-f', '--force', help="Overwrite previous outputs", action='store_false', default=False)
+    parser.add_argument('-f', '--overwrite', help="Overwrite previous outputs", action='store_false', default=False)
     return parser.parse_args()
 
 
@@ -64,9 +64,9 @@ def main(model_configs: List[ModelConfig], experiment_id: str):
     if args.jobs == -1:
         args.jobs = multiprocessing.cpu_count()
 
-    termcolor.cprint(f"Running with n_proc={args.jobs}, force={args.force}", "green")
+    termcolor.cprint(f"Running with n_proc={args.jobs}, overwrite={args.overwrite}", "green")
 
     tick = time.time()
-    run_parallel(model_configs, save_path, args.jobs, args.force)
+    run_parallel(model_configs, save_path, args.jobs, args.overwrite)
     tock = time.time()
     termcolor.cprint(f"Finished {len(SWEEP)} minisweep experiments in {tock - tick:.2f} seconds", "green")
