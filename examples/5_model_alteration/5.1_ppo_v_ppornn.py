@@ -8,7 +8,7 @@ experiment_tag = "5_1"
 model_configs = [
     # Note: already run as part of 1.1
     # ModelConfig(name="PPO", cls=PPO),
-    ModelConfig(name="PPO_RNN", cls=RecurrentPPO),
+    ModelConfig(name="PPO_RNN", cls=RecurrentPPO, policy="MlpLstmPolicy"),
 ]
 
 if __name__ == "__main__":

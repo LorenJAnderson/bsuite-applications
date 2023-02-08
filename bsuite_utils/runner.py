@@ -32,7 +32,7 @@ def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrit
     tick = time.time()
     base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=overwrite)
     env = gym_wrapper.GymFromDMEnv(base_env)
-    model = model_conf.cls("MlpPolicy", env, **model_conf.kwargs)
+    model = model_conf.cls(policy=model_conf.policy, env=env, **model_conf.kwargs)
     exp_conf = SWEEP_SETTINGS[bsuite_id]
     model.learn(total_timesteps=exp_conf.time_steps, reset_num_timesteps=exp_conf.reset_timestep)
     tock = time.time()
