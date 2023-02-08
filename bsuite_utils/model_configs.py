@@ -3,13 +3,14 @@ from typing import NamedTuple
 from sb3_contrib import RecurrentPPO, QRDQN
 from stable_baselines3 import DQN, A2C, PPO
 
-from bsuite_utils.custom_models import BSuiteDQNShim
+from bsuite_utils.custom_models import BSuiteDQNShim, LifeWrapper, SkipWrapper
 
 
 class ModelConfig(NamedTuple):
     name: str
     cls: type
     policy: str = "MlpPolicy"
+    env_wrapper: type = None
     kwargs: dict = dict()
 
 
@@ -30,6 +31,10 @@ dqn_alternate_buffsizes = [
 ]
 
 # 2
+dqn_life = [ModelConfig(name="DQN_life", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=LifeWrapper)]
+# TODO: missing 2.2
+dqn_frameskip = [ModelConfig(name="DQN_frameskip", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=SkipWrapper)]
+
 
 # 3
 ppo_entropy_variants = [ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs=dict(ent_coef=x)) for x in [0.001, 0.01, 0.1]]
@@ -54,6 +59,8 @@ dqn_bad_burnin = [
     in [10_000]
 ]
 
+
 # 5
 ppo_rnn = [ModelConfig(name="RecurrentPPO", cls=RecurrentPPO, policy="MlpLstmPolicy")]
 dqn_qrdn = [ModelConfig(name="QRDQN", cls=QRDQN, kwargs=_dqn_default_kwargs)]
+# TOOD: missing 5.3

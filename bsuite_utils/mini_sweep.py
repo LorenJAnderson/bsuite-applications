@@ -78,6 +78,7 @@ sweep_config = dict(
 @dataclasses.dataclass
 class ExperimentSettings:
     time_steps: int  # number of time steps per episode
+    # TODO: seems this is no logner needed as all are fixed=false.
     reset_timestep: bool  # whether to use fixed or variable length episodes
 
 SWEEP_SETTINGS: Dict[str, ExperimentSettings] = dict()

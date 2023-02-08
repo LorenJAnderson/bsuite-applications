@@ -18,7 +18,7 @@ DEFAULT_RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results")
 _HEADER_COLOR = "blue"
 _INFO_COLOR = "yellow"  # Mirror bsuite logging
 _FOOTER_COLOR = "green"
-_WARN_COLOR = "orange"
+_WARN_COLOR = "yellow"
 
 
 def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrite: bool):
@@ -35,6 +35,8 @@ def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrit
     tick = time.time()
     base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=overwrite)
     env = gym_wrapper.GymFromDMEnv(base_env)
+    if model_conf.env_wrapper:
+        env = model_conf.env_wrapper(env)
     model = model_conf.cls(policy=model_conf.policy, env=env, **model_conf.kwargs)
     exp_conf = SWEEP_SETTINGS[bsuite_id]
     # TODO: don't need both
@@ -50,12 +52,13 @@ def run_parallel(experiment_ids: List[str], results_root: str, n_jobs: int, over
     for eid in experiment_ids:
         exp_conf: ExperimentConfig = ID_EXPERIMENT_MAP[eid]
         for model_conf in exp_conf.model_configs:
-            if model_conf.name not in encountered:
-                for bsuite_id in SWEEP:
-                    tasks.append((model_conf, bsuite_id, results_root, overwrite))
-                encountered.add(model_conf.name)
-            else:
+            if model_conf.name in encountered:
                 termcolor.cprint(f"Will ruse results of {model_conf.name} from another experiment", _WARN_COLOR)
+                continue
+            for bsuite_id in SWEEP:
+                tasks.append((model_conf, bsuite_id, results_root, overwrite))
+            encountered.add(model_conf.name)
+
     termcolor.cprint(f"Total: {len(tasks)} tasks", )
     with multiprocessing.Pool(n_jobs) as pool:
         pool.starmap(run_single, tasks)
