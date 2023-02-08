@@ -16,7 +16,7 @@ class BSuiteDQNShim:
         experiment.run(self.agent, self.env, num_episodes=total_timesteps)
 
 
-class LifeWrapper(gym.Env):
+class LifeWrapper:
     def __init__(self, env):
         self.count_resets = 0
         self.base_env = env
@@ -46,8 +46,11 @@ class LifeWrapper(gym.Env):
         else:
             return self.obs, self.rew, self.done, self.info
 
+    def __getattr__(self, name):
+        return getattr(self.base_env, name)
 
-class SkipWrapper(gym.Env):
+
+class SkipWrapper:
     def __init__(self, env):
         self.base_env = env
 
@@ -63,3 +66,6 @@ class SkipWrapper(gym.Env):
             if done:
                 break
         return obs, rew_total, done, info
+
+    def __getattr__(self, name):
+        return getattr(self.base_env, name)
