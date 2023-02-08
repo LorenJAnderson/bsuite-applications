@@ -127,7 +127,7 @@ Due to computational necessity, we created a subset of *bsuite*, which we will r
 
 We stress that the below examples are not meant to amaze the reader or exhibit state-of-the-art research. <span style="color: red;">The main products of this work are the practicality and diversity of ideas in the examples</span>, while the examples are primarily for basic validation and illustrative purposes. Moreover, these experiments use modest compute power and showcase the effectiveness of *bsuite* in the low-compute regime. Each example has a benefit such as saving development time, shorten compute time, increase performance, and lessen frustration of the practitioner, among other benefits. Discussion of these savings are relegated to the individual categories, and to maintain any sense of brevity, we now begin discussion of the examples.
 
-## 1. Initial Model Choice
+## 1. Initial Model Selection
 The reinforcement learining development cycle typically begins with selecting or being given an underlying environment. Perhaps the first question in the cycle is as follows, "*Which underlying RL model should I choose to best tackle this environment, given my resources*?" Resources can range from the hardware (e.g model size on the GPU), to temporal constraints, to availability of off-the-shelf algorithms ([Liang et al., 2018](https://proceedings.mlr.press/v80/liang18b); [Raffin et al., 2021](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)), to maximimum difficulty of agent implementation. In this section, we illustrate that, while optimally answering the above question may remain out of reach, *bsuite* can be used to provide quantitative answers to those questions.
 
 ### 1.1 Comparing Baseline Algorithms
@@ -138,7 +138,7 @@ The reinforcement learining development cycle typically begins with selecting or
 
 ### 1.4 Summary and Future Work
 
-## 2. Preprocessing Selection
+## 2. Preprocessing Choice
 Many environments come with various complexities, such as high-dimensional, unscaled observations, unscaled rewards, unnecessary actions, and partially-observable Markov Decision Process (POMDP) dynamics. A natural question to ask is, "*What environment preprocessing techniques will best help my agent attain its goal in this environment*?" While environments sometimes come proprocessed 'out-of-the-box', the classic benchmarking and evaluation paper on *ATARI* ([Machado et al., 2018](https://www.jair.org/index.php/jair/article/view/11182)) states that preprocessing is considered part of the underlying algorithm and is indeed a choice of the practitioner. In this section, we show how *bsuite* can provide insight when selecting the preprocessing methods.
 
 ### 2.1 Choosing a Better Model vs. Preprocessing
