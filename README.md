@@ -12,10 +12,11 @@ You may need to install tensorflow separatrely as well.
 
 
 ## Running experiments
-> make <experiment_name>
+```
+python run.py --help
+```
 
-where `<experiment_name>` is one of the following:
-* `all` - run all experiments sequentially
-* `experiment_1_1` - run experiment 1.1
-
-
+## Generating plots
+```
+python analyze.py --help
+```
