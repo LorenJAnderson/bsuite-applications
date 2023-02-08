@@ -1,9 +1,13 @@
-from typing import Tuple, Dict, Any, Optional
+from typing import Tuple, Dict, Any
 
 import numpy as np
-from bsuite.baselines import experiment
 from bsuite.baselines.tf import dqn
 from bsuite.utils import gym_wrapper
+
+# Type aliases
+_Observation = np.ndarray
+_GymTimestep = Tuple[_Observation, float, bool, Dict[str, Any]]
+
 
 class BSuiteDQNShim:
     def __init__(self, policy, env: gym_wrapper.GymFromDMEnv):
@@ -14,14 +18,21 @@ class BSuiteDQNShim:
         )
 
     def learn(self, total_timesteps: int, reset_num_timesteps: bool = False):
-        # TODO: pretty sure this is wrong
-        experiment.run(self.agent, self.env, num_episodes=total_timesteps)
+        steps = 0
+        while steps < total_timesteps:
+            # Start a new episode.
+            timestep = self.env.reset()
+            while not timestep.last():
+                # Generate an action from the agent's policy.
+                action = self.agent.select_action(timestep)
+                # Step the environment.
+                new_timestep = self.env.step(action)
+                # Tell the agent about what just happened.
+                self.agent.update(timestep, action, new_timestep)
 
+                timestep = new_timestep
+                steps += 1
 
-
-# Type aliases
-_Observation = np.ndarray
-_GymTimestep = Tuple[_Observation, float, bool, Dict[str, Any]]
 
 class LifeWrapper:
     def __init__(self, env: gym_wrapper.GymFromDMEnv, n_lives: int = 5):
