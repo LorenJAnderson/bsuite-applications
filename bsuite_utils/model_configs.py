@@ -43,7 +43,7 @@ ppo_entropy_variants = [ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs={**_ppo_
                         [0.0, 0.001, 0.1]]
 dqn_lr_variants = [
     ModelConfig(name=f"DQN_lr{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "learning_rate": x}) for x in
-    [10 ** (-x) for x in range(8)]
+    [10 ** (-x) for x in [0, 1, 2, 4, 6]]
 ]
 dqn_epsilon_variants = [
     ModelConfig(name=f"DQN_eps{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "exploration_fraction": x}) for x in
