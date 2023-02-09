@@ -53,7 +53,7 @@ dqn_bad_gamma = [
     ModelConfig(name=f"DQN_gamma{x}", cls=DQN, kwargs={**_dqn_default_kwargs, **dict(gamma=x)}) for x in [1.0]
 ]
 ppo_bad_lr = [
-    ModelConfig(name=f"PPO_lr{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "learning_rates": x}) for x in [1e3]
+    ModelConfig(name=f"PPO_lr{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "learning_rate": x}) for x in [1e3]
 ]
 dqn_bad_burnin = [
     ModelConfig(name=f"DQN_burn{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "learning_starts": x}) for x
