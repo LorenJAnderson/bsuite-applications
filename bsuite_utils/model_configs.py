@@ -61,6 +61,7 @@ dqn_bad_burnin = [
 ]
 
 # 5
-ppo_rnn = [ModelConfig(name="RecurrentPPO", cls=RecurrentPPO, policy="MlpLstmPolicy", kwargs=_ppo_default_kwargs)]
+ppo_rnn = [ModelConfig(name="RecurrentPPO", cls=RecurrentPPO, policy="MlpLstmPolicy",
+                       kwargs={**_ppo_default_kwargs, "batch_size": 64})]
 dqn_qrdn = [ModelConfig(name="QRDQN", cls=QRDQN, kwargs=_dqn_default_kwargs)]
 # TOOD: missing 5.3
