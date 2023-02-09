@@ -11,7 +11,7 @@ EXPERIMENTS = [
     ExperimentConfig("0.1", dqn_default),
     ExperimentConfig("0.2", ppo_tuned),
 
-    ExperimentConfig("1.1", dqn_default + a2c_default + ppo_default),
+    ExperimentConfig("1.1", dqn_default + a2c_default + ppo_tuned),
     ExperimentConfig("1.2", dqn_default + dqn_alternate_implementations),
     ExperimentConfig("1.3", dqn_default + dqn_alternate_buffsizes),
 

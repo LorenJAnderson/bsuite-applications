@@ -15,7 +15,7 @@ class ModelConfig(NamedTuple):
 
 
 _dqn_default_kwargs = dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)
-_ppo_tuned_kwargs = dict(learning_rate=0.0007, ent_coef=0.01)
+_ppo_tuned_kwargs = dict(learning_rate=0.0007, ent_coef=0.01, n_steps=128)
 
 # 0.2
 ppo_tuned = [ModelConfig(name="PPO_tuned", cls=PPO, kwargs=_ppo_tuned_kwargs), ]

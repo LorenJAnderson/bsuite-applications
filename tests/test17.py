@@ -2,7 +2,7 @@
 import os
 import pandas as pd
 
-directory = '../results/QRDQN/'
+directory = '../results/PPO_tuned/'
 
 for filename in os.listdir(directory):
     f = os.path.join(directory, filename)
