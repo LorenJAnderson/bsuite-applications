@@ -1,17 +1,15 @@
-import dataclasses
-from typing import List, NamedTuple
+from typing import List
 
 from bsuite_utils.model_configs import *
+
 
 class ExperimentConfig(NamedTuple):
     id: str  # Must not contain path-hostile characters. Preferably no spaces.
     model_configs: List[ModelConfig]
 
-EXPERIMENTS = [
-    ExperimentConfig("0.1", dqn_default),
-    ExperimentConfig("0.2", ppo_tuned),
 
-    ExperimentConfig("1.1", dqn_default + a2c_default + ppo_tuned),
+EXPERIMENTS = [
+    ExperimentConfig("1.1", dqn_default + a2c_default + ppo_default),
     ExperimentConfig("1.2", dqn_default + dqn_alternate_implementations),
     ExperimentConfig("1.3", dqn_default + dqn_alternate_buffsizes),
 
@@ -29,7 +27,7 @@ EXPERIMENTS = [
 
     ExperimentConfig("5.1", ppo_default + ppo_rnn),
     ExperimentConfig("5.2", dqn_default + dqn_qrdn),
-    ExperimentConfig("5.3", []), # TODO
+    ExperimentConfig("5.3", []),  # TODO
 ]
 
 ID_EXPERIMENT_MAP = {exp.id: exp for exp in EXPERIMENTS}
