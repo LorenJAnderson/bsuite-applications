@@ -27,7 +27,7 @@ EXPERIMENTS = [
 
     ExperimentConfig("5.1", ppo_default + ppo_rnn),
     ExperimentConfig("5.2", dqn_default + dqn_qrdn),
-    ExperimentConfig("5.3", []),  # TODO
+    ExperimentConfig("5.3", dqn_default + dqn_cnn),
 ]
 
 ID_EXPERIMENT_MAP = {exp.id: exp for exp in EXPERIMENTS}
