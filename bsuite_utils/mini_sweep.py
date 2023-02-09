@@ -34,7 +34,7 @@ sweep_config = dict(
     },
     discounting_chain={
         'ids': [0, 1, 2, 3, 4],
-        'time_steps': [100_000] * 5,
+        'time_steps': [1_000_000] * 5,
         'fixed': False
     },
     memory_len={
