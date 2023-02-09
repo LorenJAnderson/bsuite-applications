@@ -1,7 +1,13 @@
-from bsuite.baselines import experiment
+from typing import Tuple, Dict, Any
+
+import numpy as np
 from bsuite.baselines.tf import dqn
 from bsuite.utils import gym_wrapper
-import gym
+
+# Type aliases
+_Observation = np.ndarray
+_GymTimestep = Tuple[_Observation, float, bool, Dict[str, Any]]
+
 
 class BSuiteDQNShim:
     def __init__(self, policy, env: gym_wrapper.GymFromDMEnv):
@@ -12,39 +18,38 @@ class BSuiteDQNShim:
         )
 
     def learn(self, total_timesteps: int, reset_num_timesteps: bool = False):
-        # TODO: pretty sure this is wrong
-        experiment.run(self.agent, self.env, num_episodes=total_timesteps)
+        steps = 0
+        while steps < total_timesteps:
+            # Start a new episode.
+            timestep = self.env.reset()
+            while not timestep.last():
+                # Generate an action from the agent's policy.
+                action = self.agent.select_action(timestep)
+                # Step the environment.
+                new_timestep = self.env.step(action)
+                # Tell the agent about what just happened.
+                self.agent.update(timestep, action, new_timestep)
+
+                timestep = new_timestep
+                steps += 1
 
 
 class LifeWrapper:
-    def __init__(self, env):
+    def __init__(self, env: gym_wrapper.GymFromDMEnv, n_lives: int = 5):
         self.count_resets = 0
+        self.n_lives = n_lives
         self.base_env = env
-        self.obs = None
-        self.rew = None
-        self.done = None
-        self.info = None
 
-    def reset(self):
-        if (self.count_resets % 5) == 0:
-            return self.hard_reset()
-        else:
-            return self.soft_reset()
-
-    def soft_reset(self):
-        obs = self.base_env.reset()
-        return obs, self.rew, self.done, self.info
-
-    def hard_reset(self):
+    def reset(self) -> _Observation:  # return an observation
+        self.count_resets = 0
         return self.base_env.reset()
 
-    def step(self, action):
-        self.obs, self.rew, self.done, self.info = self.base_env.step(action)
-        if self.done:
+    def step(self, action) -> _GymTimestep:
+        obs, rew, done, info = self.base_env.step(action)
+        if done:
             self.count_resets += 1
-            return self.reset()
-        else:
-            return self.obs, self.rew, self.done, self.info
+        done = self.count_resets == self.n_lives
+        return obs, rew, done, info
 
     def __getattr__(self, name):
         return getattr(self.base_env, name)
