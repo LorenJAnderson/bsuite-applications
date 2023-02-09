@@ -45,7 +45,7 @@ dqn_lr_variants = [
 ]
 dqn_epsilon_variants = [
     ModelConfig(name=f"DQN_eps{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "exploration_fraction": x}) for x in
-    [0.2, 0.4, 0.6]
+    [0.0, 0.05, 0.2, 0.4, 0.6]
 ]
 
 # 4
