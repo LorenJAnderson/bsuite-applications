@@ -3,7 +3,7 @@ from typing import NamedTuple
 from sb3_contrib import RecurrentPPO, QRDQN
 from stable_baselines3 import DQN, A2C, PPO
 
-from bsuite_utils.custom_models import BSuiteDQNShim, LifeWrapper, SkipWrapper
+from bsuite_utils.custom_models import BSuiteDQNShim, LifeWrapper, SkipWrapper, FramestackWrapper, NormalizeWrapper
 from bsuite_utils.mnist_wrapper import MNISTWrapper, CustomCNNPolicy
 
 
@@ -33,9 +33,10 @@ dqn_alternate_buffsizes = [
 ]
 
 # 2
-dqn_life = [ModelConfig(name="DQN_life", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=LifeWrapper)]
-# TODO: missing 2.2
+# dqn_life = [ModelConfig(name="DQN_life", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=LifeWrapper)]
 dqn_frameskip = [ModelConfig(name="DQN_frameskip", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=SkipWrapper)]
+dqn_normalize = [ModelConfig(name="DQN_normalize", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=NormalizeWrapper)]
+dqn_framestack = [ModelConfig(name="DQN_framestack", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FramestackWrapper)]
 
 # 3
 ppo_entropy_variants = [ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "ent_coef": x}) for x in
