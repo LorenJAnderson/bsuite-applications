@@ -26,7 +26,7 @@ EXPERIMENTS = [
     ExperimentConfig("4.3", dqn_default + dqn_bad_burnin),
 
     ExperimentConfig("5.1", ppo_default + ppo_rnn),
-    ExperimentConfig("5.2", dqn_default + dqn_qrdn),
+    ExperimentConfig("5.2", dqn_default + dqn_qrdn + dqn_qrdn_matched_parameters),
     ExperimentConfig("5.3", dqn_default + dqn_cnn),
 ]
 

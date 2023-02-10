@@ -70,7 +70,11 @@ dqn_bad_burnin = [
 ppo_rnn = [ModelConfig(name="RecurrentPPO", cls=RecurrentPPO, policy="MlpLstmPolicy",
                        kwargs={**_ppo_default_kwargs, "batch_size": 64})]
 dqn_qrdn = [ModelConfig(name="QRDQN", cls=QRDQN, kwargs=_dqn_default_kwargs)]
-dqn_qrdn_matched_parameters = [ModelConfig(name="QRDQN_MATCH", cls=QRDQN, kwargs={**_dqn_default_kwargs, })]
+dqn_qrdn_matched_parameters = [ModelConfig(name="QRDQN_MATCH", cls=QRDQN, kwargs={**_dqn_default_kwargs, **dict(
+    exploration_fraction=0.1,
+    exploration_initial_eps=1.0,
+    exploration_final_eps=0.05,
+)})]
 
 dqn_cnn = [
     ModelConfig(name="DQN_CNN", cls=DQN, policy=CustomCNNPolicy, kwargs=_dqn_default_kwargs, env_wrapper=MNISTWrapper)]
