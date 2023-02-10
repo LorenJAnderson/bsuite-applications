@@ -41,6 +41,8 @@ dqn_frameskip_variants = [
 dqn_normalize = [ModelConfig(name="DQN_normalize", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=NormalizeWrapper)]
 dqn_framestack = [
     ModelConfig(name="DQN_framestack", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameStackWrapper)]
+ppo_framestack = [
+    ModelConfig(name="PPO_framestack", cls=PPO, kwargs=_ppo_default_kwargs, env_wrapper=FrameStackWrapper)]
 
 # 3
 ppo_entropy_variants = [ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "ent_coef": x}) for x in
