@@ -51,7 +51,7 @@ class SmallCNN(BaseFeaturesExtractor):
             observation_space: spaces.Box,
             features_dim: int = 512,  # I don't think this matters
             normalized_image: bool = False,
-            scale=0
+            scale='small'
     ) -> None:
         super().__init__(observation_space, features_dim)
         # We assume CxHxW images (channels first)
@@ -78,13 +78,15 @@ class SmallCNN(BaseFeaturesExtractor):
         )
         elif scale == 'large':
             self.cnn = nn.Sequential(
-                nn.Conv2d(n_input_channels, 32, kernel_size=5, padding='same'),
+                nn.Conv2d(n_input_channels, 32, kernel_size=5),
                 nn.ReLU(),
-                nn.Conv2d(32, 64, kernel_size=5, padding='same'),
+                nn.Conv2d(32, 64, kernel_size=5),
                 nn.ReLU(),
-                nn.Conv2d(64, 64, kernel_size=5, padding='same'),
+                nn.Conv2d(64, 64, kernel_size=5),
                 nn.Flatten(),
             )
+        else:
+            raise ValueError(f"Invalid scale: {scale}. Options are 'small', 'medium', 'large'")
 
         # Compute shape by doing one forward pass
         with torch.no_grad():
