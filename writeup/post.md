@@ -136,7 +136,7 @@ The applied examples in the published paper are rather meagre: there are two exa
 
 ### 0.4 Contribution Statement
 
-This blog post extends the work of *bsuite* by showcasing 15 explicit use cases with experimental illustration that directly address specific questions in the RL development cycle to (i) help bridge the gap between theory and practice, (ii) promote community acceptance, (iii) aid applied practitioners, and (iv) highlight potential research directions for reproducible RL. 
+This blog post extends the work of *bsuite* by showcasing X explicit use cases with experimental illustration that directly address specific questions in the reinforcement learning development process to (i) help bridge the gap between theory and practice, (ii) promote community acceptance, (iii) aid applied practitioners, and (iv) highlight potential research directions in reproducible reinforcement learning. 
 
 ### 0.5 Experiment Summary
 
