@@ -239,12 +239,46 @@ This section showed how *bsuite* can effectively and efficiently gauge the power
 After selecting a model and determining any preprocessing of the environment, the next step is to train the agent on the environment and gauge its competency. During the training process, initial choices of hyperparameters can play a large role in the agent performance ([Andrychowicz et al., 2021](https://arxiv.org/abs/2006.05990)), ranging from how to explore, how quickly the model should learn from experience, and the length of time that actions are considered to influence rewards. Due to their importance, a question is, "*How can I choose hyperparameters to yield the best performance, given a model?*" In this section, we show how *bsuite* can be used for validation and efficiency of tuning hyperparameters.
 
 ### 3.1 Unintuitive Hyperparameters
+Some hyperparameters such as exploration percentage and batch size are more concrete, while others such as gamma and learning rate are a little less intuitive. Determining a starting value of an unintuitive hyperparameter (or one made up by the experimenter) can be challenging. Instead of trying many runs of a difficult environment, running *bsuite* can give a rough estimate of an acceptable hyperparameter value.
+
+*Example*: The entropy bonus coefficient of PPO is unintuitive, with few comparisons, in contrast to learning rate with DL. Here, we try many different hyperparameters of PPO and show that when the entropy coefficient is 0.01, the agent has highest performance on *msuite*. 
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar31.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
 
 ### 3.2 Promising Ranges of Hyperparameters
+While choosing a 'best' hyperparameter with *msuite* is enticing, a range of valid hyperparameters may be what is required. For example, an increase of computational power may allow a slightly lower learning rate across more episodes for added stability. Running a range of hyperparameters can help determine the most promising regions and certain soft boundaries for hyperparameters, especially without changing other hyperparameters. 
+
+*Example*: Learning rate in RL is typically lower than in DL due to the non-stationary training dataset, required for stability. Here, we test learning rates of various scales with the default DQN implementation. The learning rates near 1e-2 to 1e-4 are certainly better for these tasks (mention regret). Note how the original DQN paper has learning rate 1e-4 (mention mainly looking at top bound because of regret). 
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar32.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
 
 ### 3.3 Pace of Annealing Hyperparameters
+While some hyperparameters stay fixed, some must change throughout the course of training. Typically, these include hyperparameters that control the exploration vs. exploitation dilemma, including entropy bonus and epsilon-greedy exploration. One can use *bsuite* to provide a quick confirmation that the annealing of these parameters isn't too fast or slow on basic tasks.
+
+*Example*: We anneal possibly the most well-known parameter on DQN: epsilon. Running *msuite* on possible annealing fractions yields the following figure. As can be seen, the value of 0.1 does well, and in general exploring less on these tasks is better due to the regret score. These results corroborate the exploration fraction in the DQN paper (cite). 
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar33.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
 
 ### 3.4 Summary and Future Work
+Determining hyperparameters can directly save experimentation time and improve performance of an algorithm. Having fast runs on *bsuite* can reduce computational burden of a run on another environment, although care needs to be taken so results are transferrable (e.g. making sure capabilities are same). The three experiments above can be extended by documenting the change in hyperparameters, and the possible annealing. Furthermore, since *bsuite* is quantitative, it would be interesting to see an automatic hyperparameter tuner with bsuite and compare against one for a specific environment or integrate it with another tuner.
 
 ## 4. Testing and Debugging
 Known to every practitioner, testing and debugging a program is neraly unavoidable. A common question in the RL development cycle is, "*What tests can I perform to verify that my agent is running as intended?*" Due to the prevalence of silent bugs in RL code and long runtimes, quick unit tests can be invaluable for the practitioner, as shown in successor work to *bsuite* ([Rajan & Hutter, 2019](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/19-NeurIPS-Workshop-MDP_Playground.pdf)). In this section, we show how *bsuite* can be used as a sanity check the expectations and assumptions of the implementation, which was mentioned as a use case of *bsuite* in the paper.
@@ -253,9 +287,26 @@ Known to every practitioner, testing and debugging a program is neraly unavoidab
 
 ### 4.2 Incorrect Constant
 
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar42.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
+
 ### 4.3 OTS Algorithm Testing
 
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar43.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
+
 ### 4.4 Summary and Future Work
+Debugging surely saves development time and lessens frustration of the practitioner. Future research directions are two sides to the same coin - using *bsuite* and logging bugs from poor performance, and creating directed unit tests to squash bugs. (Anything else?). For testing purposes, perhaps create a suite of increasing benchmarks to determine where the difficulty is. (intermediate between completely diagnostic and complex benchmarks) - does that fit here? A catalogue of specific algorithms and hyperparameters would help with testing (discussed previously). 
 
 ## 5. Model Improvement
 A natural milestone in the RL development cycle is getting an algorithm running bug-free with notable signs of learning. A common follow-up question to ask is "*How can I improve my model to yield better performance?*" The practitioner may consider choosing an entirely new model and repeating some of the above steps; usually, a more enticing option is directly improving the existing model by reusing its core structure and only making minor additions or modifications, an approach taken in the state-of-the-art RAINBOW DQN algorithm ([Hessel et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11796)). In this section, we discuss ideas regarding the improvement of pre-existing somewhat competent models.
@@ -275,6 +326,8 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 ### 5.3 Determining Necessary Improvements
 
 ### 5.4 Summary and Future Work
+
+Recommender system - document improvements of bells and whistles. 
 
 ## 6. Conclusion
 The above sections complete the main ideas of this paper. We now provide a hindsight summary of our work. Afterwards, we supply statements on green and inclusive computing regarding our contribution. 
