@@ -140,37 +140,87 @@ Looking at the [paper reviews](https://openreview.net/forum?id=rygf-kSYwH), [rev
 
 **Contribution Statement**: This blog post extends the work of *bsuite* by showcasing 15 explicit use cases with experimental illustration that directly address specific questions in the RL development cycle to (i) help bridge the gap between theory and practice, (ii) promote community acceptance, (iii) aid applied practitioners, and (iv) highlight potential research directions for reproducible RL. 
 
+### 0.5 Experiment Summary
+
 We separate our examples into 5 categories of **model choice**, **preprocessing selection**, **hyperparameter tuning**, **debugging**, and **model improvement**. This blog post follows a similar structure to the paper *Deep Reinforcement Learning that Matters* ([Henderson et al, 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11694)) by posing and answering a question regarding each category, and then providing 3 illustrative examples with conclusions. Most examples use Stable-Baselines3 (SB3) ([Raffin et al., 2021](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)) for training the DRL agents due to its clarity and simplicity. We provide code and instructions for each experiment in our GitHub codebase (cite). Since the focus of this blog is the discussion of diverse example use cases, not architectural considerations or implementation details, we refer the reader to the [paper appendix](https://openreview.net/pdf?id=rygf-kSYwH#page=13) and the [colab analysis tutorial](https://colab.research.google.com/github/deepmind/bsuite/blob/master/bsuite/analysis/results.ipynb) for more information about the environments and to the [colab intro tutorial](https://colab.research.google.com/drive/1rU20zJ281sZuMD1DHbsODFr1DbASL0RH) and our own codebase (cite) for instructions and examples of the implementation of *bsuite*. Our examples focus primarily DRL, as that is the hub of more RL research these days, but they extend to general RL. Our baselines algorithms of DQN, A2C, and PPO are compared in (1.1), which is a good place to start reviewing examples since we discuss choices of initial hyperparameters there. Most similar to our examples would be the deep sea and memory length experiments in the paper, as they draw conclusions/insights from the radar charts. 
 
 Due to computational necessity, we created a subset of *bsuite*, which we will refer to as *mini-bsuite* or *msuite* in this work that reduced the number of experiments from X to Y and reduced the number of environments per core capability from W to Z. We designed *msuite* to mirror the general scaling pattern of each *bsuite* environment and diversity of core capabilities among all *bsuite* environments; a complete description of *msuite* can be found in our GitHub codebase (cite). Since *bsuite* was a single `bsuite2019` release and meant to evolve over time, the selection for number and diversity of environments seemed to have an arbitrary threshold; therefore, we don't hesitate to create our own arbitrary threshold resulting in *msuite*, and we feel that running experiments on a subset of *bsuite* highlights the strength and flexibility of using a targeted diagnostic benchmark to elicit insights. One reason our charts may vary from those of *bsuite* paper is that they reduce the number of experiments and generally keep the harder experiments. While we always use bsuite, we again mention how methodical and diagnostic RL with emphasis on reproducibility is the general goal.
 
-We stress that the below examples are not meant to amaze the reader or exhibit state-of-the-art research. <span style="color: red;">The main products of this work are the practicality and diversity of ideas in the examples</span>, while the examples are primarily for basic validation and illustrative purposes. Moreover, these experiments use modest compute power and showcase the effectiveness of *bsuite* in the low-compute regime. Each example has a benefit such as saving development time, shorten compute time, increase performance, and lessen frustration of the practitioner, among other benefits; we don't directly acknowledge these benefits since they are mainly due to the domain choice and implementation of a researcher. Discussion of these savings are relegated to the individual categories, and to maintain any sense of brevity, we now begin discussion of the examples.
+We stress that the below examples are not meant to amaze the reader or exhibit state-of-the-art research. <span style="color: red;">The main products of this work are the practicality and diversity of ideas in the examples</span>, while the examples are primarily for basic validation and illustrative purposes. Moreover, these experiments use modest compute power and showcase the effectiveness of *bsuite* in the low-compute regime. Each example has a benefit such as saving development time, shorten compute time, increase performance, and lessen frustration of the practitioner, among other benefits; we don't directly acknowledge these benefits since they are mainly due to the domain choice and implementation of a researcher. Discussion of these savings are relegated to the individual categories, and to maintain any sense of brevity, we now begin discussion of the examples. These examples need to be brief to maintain any sort of brevity. Some examples are more conclusive than others.
+
+(MAKE NEW EXAMPLES SECTION!!!)
 
 ## 1. Initial Model Selection
 The reinforcement learining development cycle typically begins with selecting or being given an underlying environment. Perhaps the first question in the cycle is as follows, "*Which underlying RL model should I choose to best tackle this environment, given my resources*?" Resources can range from the hardware (e.g model size on the GPU), to temporal constraints, to availability of off-the-shelf algorithms ([Liang et al., 2018](https://proceedings.mlr.press/v80/liang18b); [Raffin et al., 2021](https://dl.acm.org/doi/abs/10.5555/3546258.3546526)), to maximimum difficulty of agent implementation. In this section, we illustrate that, while optimally answering the above question may remain out of reach, *bsuite* can be used to provide quantitative answers to those questions.
 
-### 1.1 Comparing Baseline Algorithms
+### 1.1 Comparing Baseline Agents
+
+Perhaps the first task of reinforcement learning, given an environment, is choosing an agent. There are many architectures to choose from, and it would be nice to know which is better beforehand. Unfortunately, the No Free Lunch Theorem of data science tailored to reinforcement learning states that no algorithm will prove better than any other unless the characteristics of the underlying environment are known. Using *bsuite* provides a quantitative assessment of agent performance on capabilities that are prevalent in many or even most reinforcement learning environments of interest.
+
+*Example*: This example runs the Stable-Baselines3 (SB3) implementations of DQN, A2C, and PPO on *mbsuite* and displays results in Figure 3. Traditional knowledge states that PPO is more powerful and a natural successor to A2C, and DQN is possibly the most basic useful DRL algorithm, and the results corroborate that fact (cite on-policy paper?). In most categories, especially the credit assignment category, PPO scores higher than the other agents, prompting its use as the premiere baseline algorithm.
 
 <div style="text-align: center;">
 
 ![](/home/loren/PycharmProjects/blogpost/writeup/images/radar11.png)
 
-*Figure 3. Comparison of default DQN, A2C, and PPO baselines.*
+*Figure 1.1. Comparison of default DQN, A2C, and PPO baselines.*
 
 </div>
 
 ### 1.2 Comparing Off-the-Shelf Implementations
 
-### 1.3 Gauging Diminishing Returns of Agent Complexity
+Due to the non-modular nature of reinforcement learning (model-based, heirarchical), there have been many libraries, each with different purposes. Often, resources or coding capabilities do not allow for self-implementation, and OTS algorithms have been thoroughly tested. Fortunately, bsuite can provide a glance of an OTS's strengths. This is important because many OTS libraries may have hidden hyperparameters, etc.
+
+*Example*: In figure 2, we compare the DQN implementation from SB3 to the example DQN given by *bsuite*. It is clear that the DQN from *bsuite* is superior in each tested capability. This shows that *bsuite*'s implementation may have been tuned for these tasks or may have had a different architecture. (check to see hyperparams).  
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar12.png)
+
+*Figure 1.2. Comparison of default DQN, A2C, and PPO baselines.*
+
+</div>
+
+### 1.3 Gauging Hardware Necessities
+
+Even when a RL agent is selected, hardware limitations can prevent the agent from being deployed. These limitations can range from network size to data storage. Testing agents quickly on *bsuite* can provide a fast way of determining diminishing returns of a model size, especially when the size isn't known well in advance. (discuss how papers may have giant sizes). 
+
+*Example*: We show how different replay buffer sizes has an impact on *msuite*. The original buffer in DQN paper is 1M which doesn't always fit into computers; other implementations for consumers use 10K steps (cite lapan). Our results show that there are significant returns when the model size is at least 10K. Since some of the experiments have rather short episode lengths, it makes sense that the larger buffer doesn't push out those experiences. 
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar13.png)
+
+*Figure 1.3. Comparison of default DQN, A2C, and PPO baselines.*
+
+</div>
 
 ### 1.4 Summary and Future Work
+
+This section provided a quick glance of possible comparisons during the model selection phase. Due to the diversity of OTS libraries, one possible research direction in reproducible RL is to test similar algorithms with the same hyperparameters on *bsuite* and create a directory of *bsuite* radar charts. Also, one could test the prowess of various hardware (e.g. NN model) sizes and perhaps show a sweet spot on *bsuite* and other benchmarks. 
 
 ## 2. Preprocessing Choice
 Many environments come with various complexities, such as high-dimensional, unscaled observations, unscaled rewards, unnecessary actions, and partially-observable Markov Decision Process (POMDP) dynamics. A natural question to ask is, "*What environment preprocessing techniques will best help my agent attain its goal in this environment*?" While environments sometimes come proprocessed 'out-of-the-box', the classic benchmarking and evaluation paper on *ATARI* ([Machado et al., 2018](https://www.jair.org/index.php/jair/article/view/11182)) states that preprocessing is considered part of the underlying algorithm and is indeed a choice of the practitioner. In this section, we show how *bsuite* can provide insight when selecting the preprocessing methods.
 
 ### 2.1 Choosing a Better Model vs. Preprocessing
 
+Instead of proprocessing the environment better, it could be the case that a more sophisticated agent is required. For example, many improvements on DQN have been in aiding stability, overestimation, and noise. Comparing the algorithms on *msuite* provides a way to determine *the extent* to which an improvement is better, which can also help with development time considerations.
+
+*Example*: Framestacking was introduced by (atari paper) to transform the atari environments into MDPs. An addition was shown ... which instead used an RNN to have memory and use the memory to change the POMDP to an MDP. Using *msuite* shows that the improvement with RNN does indeed score higher without sacrificing anything else.
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar21.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
+
 ### 2.2 Verification of Preprocessing
+
+Making modifications to the environment is often directed at some feature of the environment. While a new preprocessing technique can help, there is always the chance that it doesn't (cite improvement paper) or even harms other capabilities. Invoking *bsuite* can quickly assure that there is no harm done and that the preprocessing occurs as planned.
+
+*Example*: Environments can come with varying scales of rewards out of the box, and sometimes it is unknown what the range is. Here, we create a reward normalization wrapper that normalizes the rewards (how?). The results show that the algorithm improves on the reward scale capability and doesn't suffer much at all in any other capability, corroborating its use.
 
 <div style="text-align: center;">
 
@@ -183,6 +233,7 @@ Many environments come with various complexities, such as high-dimensional, unsc
 ### 2.3 Other
 
 ### 2.4 Summary and Future Work
+This section showed how *bsuite* can effectively and efficiently gauge the power and capabilities of certain preprocessing techniques. (cite mainly for improving performance and verification). Of course, one research direction is to document possible preprocessing techniques and determine their scores on *bsuite* for quick comparisons. Another avenue is to critique the literature to determine the extent to which preprocessing techniques aided results.
 
 ## 3. Hyperparameter Tuning
 After selecting a model and determining any preprocessing of the environment, the next step is to train the agent on the environment and gauge its competency. During the training process, initial choices of hyperparameters can play a large role in the agent performance ([Andrychowicz et al., 2021](https://arxiv.org/abs/2006.05990)), ranging from how to explore, how quickly the model should learn from experience, and the length of time that actions are considered to influence rewards. Due to their importance, a question is, "*How can I choose hyperparameters to yield the best performance, given a model?*" In this section, we show how *bsuite* can be used for validation and efficiency of tuning hyperparameters.
