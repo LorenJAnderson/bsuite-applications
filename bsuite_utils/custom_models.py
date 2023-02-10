@@ -85,28 +85,28 @@ class LifeWrapper:
         return getattr(self.base_env, name)
 
 
-class SkipWrapper:
-    def __init__(self, env):
+class FrameSkipWrapper:
+    def __init__(self, env, n_skip: int = 4):
         self.base_env = env
+        self.n_skip = n_skip
 
     def reset(self):
         return self.base_env.reset()
 
     def step(self, action):
-        done = False
-        rew_total = 0
-        for _ in range(4):
-            obs, rew, done, info = self.base_env.step(action)
-            rew_total += rew
+        obs, rew_total, done, info = self.base_env.step(action)
+        for _ in range(self.n_skip-1):
             if done:
                 break
+            obs, rew, done, info = self.base_env.step(action)
+            rew_total += rew
         return obs, rew_total, done, info
 
     def __getattr__(self, name):
         return getattr(self.base_env, name)
 
 
-class FramestackWrapper(gym.Env):
+class FrameStackWrapper(gym.Env):
     """
     Stack Observations from the past n steps
     """
