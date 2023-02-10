@@ -29,7 +29,7 @@ dqn_alternate_implementations = [
 ]
 # 1.3
 dqn_alternate_buffsizes = [
-    ModelConfig(f"DQN_buf{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "buffer_size": x}) for x in [1_000, 100_000]
+    ModelConfig(f"DQN_buf{x}", cls=DQN, kwargs={**_dqn_default_kwargs, "buffer_size": x}) for x in [100, 1_000, 100_000]
 ]
 
 # 2
