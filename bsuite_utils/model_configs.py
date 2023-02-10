@@ -55,9 +55,12 @@ dqn_epsilon_variants = [
 ]
 
 # 4
-dqn_bad_gamma = [
-    ModelConfig(name=f"DQN_gamma{x}", cls=DQN, kwargs={**_dqn_default_kwargs, **dict(gamma=x)}) for x in [1.0]
+dqn_bad_gammas = [
+    ModelConfig(name=f"DQN_gamma{x}", cls=DQN, kwargs={**_dqn_default_kwargs, **dict(gamma=x)}) for x in [0.5, 1.0, 2.0, 3.0, 5.0]
 ]
+# dqn_bad_update_intervals = [
+#     ModelConfig(name=f"DQN_update_interval{x}", cls=DQN, kwargs={**_dqn_default_kwargs, **dict(target_update_interval=x)}) for x in [1_000_000, 2_000_000]
+# ]
 ppo_bad_lr = [
     ModelConfig(name=f"PPO_lr{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "learning_rate": x}) for x in [1e3]
 ]
@@ -76,5 +79,9 @@ dqn_qrdn_matched_parameters = [ModelConfig(name="QRDQN_MATCH", cls=QRDQN, kwargs
     exploration_final_eps=0.05,
 )})]
 
-dqn_cnn = [
-    ModelConfig(name="DQN_CNN", cls=DQN, policy=CustomCNNPolicy, kwargs=_dqn_default_kwargs, env_wrapper=MNISTWrapper)]
+dqn_cnn_variants = [
+    ModelConfig(
+        name=f"DQN_CNN_{x}", cls=DQN, policy=CustomCNNPolicy, kwargs={**_dqn_default_kwargs, "policy_kwargs": dict(scale=x)}, env_wrapper=MNISTWrapper,
+    )
+    for x in ['small', 'medium', 'large']
+]
