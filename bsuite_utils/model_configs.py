@@ -37,7 +37,7 @@ dqn_alternate_buffsizes = [
 # dqn_life = [ModelConfig(name="DQN_life", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=LifeWrapper)]
 dqn_frameskip_variants = [
     ModelConfig(name=f"DQN_frameskip{x}", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameSkipWrapper,
-                wrapper_kwargs={"n_skip": x}) for x in [4, 5]]
+                wrapper_kwargs={"n_skip": x}) for x in [3, 4]]
 dqn_normalize = [ModelConfig(name="DQN_normalize", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=NormalizeWrapper)]
 dqn_framestack = [
     ModelConfig(name="DQN_framestack", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameStackWrapper)]

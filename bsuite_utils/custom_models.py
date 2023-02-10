@@ -86,17 +86,17 @@ class LifeWrapper:
 
 
 class FrameSkipWrapper:
-    def __init__(self, env, n_skip: int = 4):
+    def __init__(self, env, n_skip: int = 3):
         self.base_env = env
         self.n_skip = n_skip
-        print("FrameSkipWrapper: Skipping {} frames".format(n_skip))
+        print(f"FrameSkipWrapper: Skipping {self.n_skip} frames")
 
     def reset(self):
         return self.base_env.reset()
 
     def step(self, action):
         obs, rew_total, done, info = self.base_env.step(action)
-        for _ in range(self.n_skip-1):
+        for _ in range(self.n_skip):
             if done:
                 break
             obs, rew, done, info = self.base_env.step(action)
