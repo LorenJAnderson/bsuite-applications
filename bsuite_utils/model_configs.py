@@ -3,7 +3,7 @@ from typing import NamedTuple
 from sb3_contrib import RecurrentPPO, QRDQN
 from stable_baselines3 import DQN, A2C, PPO
 
-from bsuite_utils.custom_models import BSuiteDQNShim, LifeWrapper, FrameSkipWrapper, FrameStackWrapper, NormalizeWrapper
+from bsuite_utils.custom_models import BSuiteDQNShim, FrameSkipWrapper, FrameStackWrapper, NormalizeWrapper
 from bsuite_utils.mnist_wrapper import MNISTWrapper, CustomCNNPolicy
 
 
@@ -13,6 +13,7 @@ class ModelConfig(NamedTuple):
     policy: str = "MlpPolicy"
     env_wrapper: type = None
     kwargs: dict = dict()
+    wrapper_kwargs: dict = dict()
 
 
 _dqn_default_kwargs = dict(learning_starts=1000, learning_rate=7e-4, buffer_size=10_000)
@@ -34,9 +35,12 @@ dqn_alternate_buffsizes = [
 
 # 2
 # dqn_life = [ModelConfig(name="DQN_life", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=LifeWrapper)]
-dqn_frameskip = [ModelConfig(name="DQN_frameskip", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameSkipWrapper)]
+dqn_frameskip_variants = [
+    ModelConfig(name=f"DQN_frameskip{x}", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameSkipWrapper,
+                wrapper_kwargs={"n_skip": x}) for x in [4, 5]]
 dqn_normalize = [ModelConfig(name="DQN_normalize", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=NormalizeWrapper)]
-dqn_framestack = [ModelConfig(name="DQN_framestack", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameStackWrapper)]
+dqn_framestack = [
+    ModelConfig(name="DQN_framestack", cls=DQN, kwargs=_dqn_default_kwargs, env_wrapper=FrameStackWrapper)]
 
 # 3
 ppo_entropy_variants = [ModelConfig(name=f"PPO_ent{x}", cls=PPO, kwargs={**_ppo_default_kwargs, "ent_coef": x}) for x in

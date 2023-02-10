@@ -89,6 +89,7 @@ class FrameSkipWrapper:
     def __init__(self, env, n_skip: int = 4):
         self.base_env = env
         self.n_skip = n_skip
+        print("FrameSkipWrapper: Skipping {} frames".format(n_skip))
 
     def reset(self):
         return self.base_env.reset()

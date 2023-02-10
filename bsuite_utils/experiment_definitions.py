@@ -15,7 +15,7 @@ EXPERIMENTS = [
 
     ExperimentConfig("2.1", dqn_default + dqn_framestack),
     ExperimentConfig("2.2", dqn_default + dqn_normalize),
-    ExperimentConfig("2.3", dqn_default + dqn_frameskip),
+    ExperimentConfig("2.3", dqn_default + dqn_frameskip_variants),
 
     ExperimentConfig("3.1", ppo_default + ppo_entropy_variants),
     ExperimentConfig("3.2", dqn_default + dqn_lr_variants),

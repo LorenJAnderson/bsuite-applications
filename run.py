@@ -36,7 +36,7 @@ def run_single(model_conf: ModelConfig, bsuite_id: str, save_path: str, overwrit
     base_env = bsuite.load_and_record(bsuite_id=bsuite_id, save_path=save_path, overwrite=overwrite)
     env = gym_wrapper.GymFromDMEnv(base_env)
     if model_conf.env_wrapper:
-        env = model_conf.env_wrapper(env)
+        env = model_conf.env_wrapper(env, **model_conf.wrapper_kwargs)
     model = model_conf.cls(policy=model_conf.policy, env=env, **model_conf.kwargs)
     exp_conf = SWEEP_SETTINGS[bsuite_id]
     # TODO: don't need both
