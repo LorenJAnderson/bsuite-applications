@@ -196,27 +196,13 @@ Even after an initial algorithm is selected, hardware limitations such as networ
 Due to the diversity of OTS libraries, one possible research direction in reproducible RL is to test algorithms from different OTS libraries using the same hyperparameters on *bsuite* and create a directory of *bsuite* radar charts. This provides practitioners a comparison with their own implmentation or a starting point when selecting an OTS library and algorithm. Another direction is to test various aspects related to hardware constraints and attempt to show the tradeoff between constraints and performance on *bsuite* and other benchmarks. This would especially help practitioners with low compute resources to budget resource use on a single or multiple projects.
 
 ## 2. Preprocessing Choice
-Many environments come with various complexities, such as high-dimensional, unscaled observations, unscaled rewards, unnecessary actions, and partially-observable Markov Decision Process (POMDP) dynamics. A natural question to ask is, "*What environment preprocessing techniques will best help my agent attain its goal in this environment*?" While environments sometimes come proprocessed 'out-of-the-box', the classic benchmarking and evaluation paper on *ATARI* ([Machado et al., 2018](https://www.jair.org/index.php/jair/article/view/11182)) states that preprocessing is considered part of the underlying algorithm and is indeed a choice of the practitioner. In this section, we show how *bsuite* can provide insight when selecting the preprocessing methods.
+Most benchmark environments present prevailing difficulties such as high-dimensional observations, unscaled rewards, unnecessary actions, and partially-observable Markov Decision Process (POMDP) dynamics. Some of these difficulties are curbed using environment preprocessing techniques. While certain environments such as *ATARI* have formalized standards for preprocessing, there are some aspects such as frame skipping that are considered part of the underlying algorithm, and therefore, a choice of the practitioner ([Machado et al., 2018](https://www.jair.org/index.php/jair/article/view/11182)). A natural question to ask is, "*What environment preprocessing techniques will best help my agent attain its goal in this environment*?".  In this section, we show how *bsuite* can provide insight to the choice of preprocessing, with benefits of increased performance and shortened training time.
 
-### 2.1 Choosing a Better Model vs. Preprocessing
+### 2.1 Verification of Preprocessing
+Preprocessing techniques usually targeted to ease some aspect of the agent's training. For example, removing unnecessary actions (e.g. in a joystick action space) prevents the agent from having to learn which actions are useless. While a new preprocessing technique can provide improvements, there is always the chance that it fails to make a substantial improvement, or worse yet, generally decreases performance. Invoking *bsuite* can help provide verification that the preprocessing provided the planned improvement.
 
-Instead of proprocessing the environment better, it could be the case that a more sophisticated agent is required. For example, many improvements on DQN have been in aiding stability, overestimation, and noise. Comparing the algorithms on *msuite* provides a way to determine *the extent* to which an improvement is better, which can also help with development time considerations.
+*Example*: Figure X shows the performance of the SB3 DQN agent versus an agent that received normalized rewards from the environment. Normalizing the rewards increases the speed of training a neural network, since the parameters are usually initialized to expect target values in a range from $-1$ to $1$. Our results show that the normalization preprocessing indeed increases the capability of navigating varying reward scales while not suffering drastically in any other capability.
 
-*Example*: Framestacking was introduced by (atari paper) to transform the atari environments into MDPs. An addition was shown ... which instead used an RNN to have memory and use the memory to change the POMDP to an MDP. Using *msuite* shows that the improvement with RNN does indeed score higher without sacrificing anything else.
-
-<div style="text-align: center;">
-
-![](/home/loren/PycharmProjects/blogpost/writeup/images/radar21.png)
-
-*Figure X. Comparison of DQN and DQN with Reward Scaling.*
-
-</div>
-
-### 2.2 Verification of Preprocessing
-
-Making modifications to the environment is often directed at some feature of the environment. While a new preprocessing technique can help, there is always the chance that it doesn't (cite improvement paper) or even harms other capabilities. Invoking *bsuite* can quickly assure that there is no harm done and that the preprocessing occurs as planned.
-
-*Example*: Environments can come with varying scales of rewards out of the box, and sometimes it is unknown what the range is. Here, we create a reward normalization wrapper that normalizes the rewards (how?). The results show that the algorithm improves on the reward scale capability and doesn't suffer much at all in any other capability, corroborating its use.
 
 <div style="text-align: center;">
 
@@ -226,10 +212,23 @@ Making modifications to the environment is often directed at some feature of the
 
 </div>
 
-### 2.3 Other
+### 2.2 Choosing a Better Model vs. Preprocessing
 
-### 2.4 Summary and Future Work
-This section showed how *bsuite* can effectively and efficiently gauge the power and capabilities of certain preprocessing techniques. (cite mainly for improving performance and verification). Of course, one research direction is to document possible preprocessing techniques and determine their scores on *bsuite* for quick comparisons. Another avenue is to critique the literature to determine the extent to which preprocessing techniques aided results.
+Instead of choosing to preprocess the environment, a more sophisticated algorithm may better achieve the preprocessing goals. For example, many improvements on the original DQN algorithm have been directed towards accomplishing goals such as improving stability, reducing overestimation, and bolstering exploration. Comparing preprocessing against an algorithmic improvement provides a quantitative reason for deciding between the two options, especially since development time of many common preprocessing wrappers is quite short.
+
+*Example*: Figure X shows the results of PPO with a recurrent network versus PPO having its observation as the last 4 stacked frames from the environment. Framestacking is common on the ATARI suite since it converts the POMDP to and MDP, which is necessary to determine velocity of any element on the screen. An improvement to DQN, Deep Recurrent Q-networks ([Hausknecht & Stone 2015](https://arxiv.org/abs/1507.06527)), uses a recurrent LSTM to aid in memory and achieve the same effects of framestacking. The  *msuite* results show that memory is considerably improved with PPO RNN and therefore may be worth the extra development time.
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar21.png)
+
+*Figure X. Comparison of DQN and DQN with Reward Scaling.*
+
+</div>
+
+
+### 2.3 Future Work
+One research direction is to document common preprocessing techniques and determine their scores on *bsuite*. This would provide practitioners a summary of directed strengths for each preprocessing technique while possibly uncovering unexpected behavior. Another direction is to determine the extent to which preprocessing techniques aided previous results in the literature, which could illuminate strengths or weaknesses in the corresponding algorithms.
 
 ## 3. Hyperparameter Tuning
 After selecting a model and determining any preprocessing of the environment, the next step is to train the agent on the environment and gauge its competency. During the training process, initial choices of hyperparameters can play a large role in the agent performance ([Andrychowicz et al., 2021](https://arxiv.org/abs/2006.05990)), ranging from how to explore, how quickly the model should learn from experience, and the length of time that actions are considered to influence rewards. Due to their importance, a question is, "*How can I choose hyperparameters to yield the best performance, given a model?*" In this section, we show how *bsuite* can be used for validation and efficiency of tuning hyperparameters.
@@ -421,3 +420,5 @@ Many of the ideas in *bsuite* and this post are most helpful in the areas of low
 [Ramesh, Aditya, et al. "Hierarchical text-conditional image generation with clip latents." arXiv preprint arXiv:2204.06125 (2022).](https://arxiv.org/abs/2204.06125)
 
 [Wolpert, David H., and William G. Macready. "No free lunch theorems for optimization." IEEE transactions on evolutionary computation 1.1 (1997): 67-82.](https://ieeexplore.ieee.org/abstract/document/585893/)
+
+[Hausknecht, Matthew, and Peter Stone. "Deep recurrent q-learning for partially observable mdps." 2015 aaai fall symposium series. 2015.](https://arxiv.org/abs/1507.06527)
