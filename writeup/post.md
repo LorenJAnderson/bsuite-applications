@@ -308,9 +308,13 @@ While the previous example used an OTS algorithm for comparison to illuminate si
 The training time for a complete run of *bsuite* can take an hour on even the most basic algorithms. Considering that a few of the easiest *bsuite* environments could have shown poor performance in the above examples within mere minutes, one research avenue is to create a fast debugging system for reinforcement learning algorithms. In the spirit of *bsuite*, it should implement targeted experiments to provide actionable solutions for eliminating silent bugs. Such work would primarily act as a public good, but it could also help bridge the gap between RL theory and practice if it could embody the targeted nature of *bsuite*.
 
 ## 5. Model Improvement
-A natural milestone in the RL development cycle is getting an algorithm running bug-free with notable signs of learning. A common follow-up question to ask is "*How can I improve my model to yield better performance?*" The practitioner may consider choosing an entirely new model and repeating some of the above steps; usually, a more enticing option is directly improving the existing model by reusing its core structure and only making minor additions or modifications, an approach taken in the state-of-the-art RAINBOW DQN algorithm ([Hessel et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11796)). In this section, we discuss ideas regarding the improvement of pre-existing somewhat competent models.
+A natural milestone in the RL development cycle is getting an algorithm running bug-free with notable signs of learning. A common follow-up question to ask is "*How can I improve my model to yield better performance?*" The practitioner may consider choosing an entirely new model and repeating some of the above steps; a more enticing option is usually to improve the existing model by reusing its core structure and only making minor additions or modifications, an approach taken in the baseline RAINBOW DQN algorithm ([Hessel et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11796)). In this section, discuss how *bsuite* can be used to provide targeted improvements of  existing models and increase performance while mitigating compute time.
 
 ### 5.1 Increasing Network Complexity
+In DRL, the neural network usually encodes the policy, and its architecture directly affects the agent's learning capacity. The more complicated CNN architecture was a driver for the first superhuman performance of a DRL algorithm on the ATARI suite due to its ability to distill image data into higher-level features. Using *bsuite* can provide a quick verification if an architectural improvement produces its intended effect.
+
+*Example*: Figure X shows the results of PPO against PPO with a recurrent neural network. As mentioned in a previous example, RNNs aid memory and were originally incorporated into DRL as a way to deal with POMDP dynamics. The results on *msuite* display the substantial increase in memory capability while sacrificing on credit assignment. This example highlights how *bsuite* can provide warnings of possible unexpected decreases in certain capabilities, which must be monitored closely by the practitioner. 
+
 
 <div style="text-align: center;">
 
@@ -320,7 +324,10 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 
 </div>
 
-### 5.2 Decoupling or Adding Confidence
+### 5.2 OTS Improvements
+While previous examples discussed comparison, verification, and debugging OTS implementations, many OTS libraries provide support for well-known algorithm improvements. For example, some DQN implementations have boolean values to signify the use of noisy networks, double Q-learning, and more. Using *bsuite* provides the necessary targeted analysis to help determine if certain improvements are fruitful for the environment at hand.
+
+*Example*: Figure X shows the results of our default DQN compared against the SB3 QRDQN algorithm with default hyperparameters and the SBE QRDQN algorithm with hyperparameters matching our default DQN implementation. The QRDQN algorithm is an improvement over DQN that aims to capture the distribution over returns instead of a point estimate of the expected return. This implementation is more complex but allows for a precise estimate that aids in stability. The results show that this improvement was rather negligible on *msuite*, and unless credit assignment is the major concern in the environment at hand, a different improvement may prove more useful.
 
 <div style="text-align: center;">
 
@@ -331,8 +338,7 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 </div>
 
 ### 5.3 Future Work
-
-Recommender system - document improvements of bells and whistles. 
+ Since *bsuite* provides quantitative results, one avenue of research is to create a recommender system that uses information from previous *bsuite* experiments to recommend improvements in DRL algorithms. The practitioner would need to provide as input the most important capabilities that the environment is believed to exhibit, and *bsuite* would tailor recommendations towards those capabilities. Such a recommender system could save compute time, increase performance, and ultimately expose the practitioner to new and exciting algorithmic possibilities.
 
 ## 6. Conclusion
 
