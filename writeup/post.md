@@ -330,33 +330,21 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 
 </div>
 
-### 5.3 Determining Necessary Improvements
-
-<div style="text-align: center;">
-
-![](/home/loren/PycharmProjects/blogpost/writeup/images/radar53.png)
-
-*Figure X. Comparison of PPO with FNN (default) and PPO with RNN (recurrent).*
-
-</div>
-
-### 5.4 Summary and Future Work
+### 5.3 Future Work
 
 Recommender system - document improvements of bells and whistles. 
 
 ## 6. Conclusion
 
-The above sections complete the main ideas of this paper. We now provide a hindsight summary of our work. Afterwards, we supply statements on green and inclusive computing regarding our contribution.  Traditional RL benchmarks contain many confounding variables, which makes post-analysis of agent performance somewhat opaque. In contrast, *bsuite*  provides targeted environments that are meant to gauge agent prowess in one or few core capabilities. The goal of *bsuite* is meant to bridge the gap between practical theory and practical algorithms, yet there currently is no database or list of example use cases for the practitioner. Furthermore, *bsuite* is poised to be a standard RL benchmark for years to come due to its acceptance in a top-tier venue, well-structured codebase, multiple tutorials, and over 100 citations in the past few years in a relatively small field. 
-
-Our work extends *bsuite* by providing 15 concrete examples of its use, with 3 examples in 5 categories. Each category section provides at least one possible avenue of related future work or research. We aim to help propel *bsuite*, and more generally methodical and reproducible RL research, into the mainstream through our explicit examples with simple code. With a diverse set of examples to choose from, we intend applied practitioners to understand more use cases, apply and document the use of *bsuite* in their experiments, and ultimately help bridge the gap between practical theory and practical algorithms. 
+Traditional RL benchmarks contain many confounding variables, which makes analysis of agent performance rather opaque. In contrast, *bsuite*  provides targeted environments that help gauge agent prowess in one or few core capabilities. The goal of *bsuite* is to help bridge the gap between practical theory and practical algorithms, yet there currently is no database or list of example use cases for the practitioner. Our work extends *bsuite* by providing concrete examples of its use, with a few examples in each of five categories. We supply at least one possible avenue of related future work or research for each category. In its current state, *bsuite* is poised to be a standard RL benchmark for years to come due to its acceptance in a top-tier venue, well-structured codebase, multiple tutorials, and over 100 citations in the past few years in a relatively small field. We aim to help propel *bsuite*, and more generally methodical and reproducible RL research, into the mainstream through our explicit use cases and examples. With a diverse set of examples to choose from, we intend for applied RL practitioners to understand more use cases of *bsuite*, apply and document the use of *bsuite* in their experiments, and ultimately help bridge the gap between practical theory and practical algorithms. 
 
 ### 6.1 Green Computing Statement
 
-The use of *bsuite* can help find directed improvements in algorithms, from high-level model selection and improvement to lower-level debugging, testing, and hyperparameter tuning. Due to the current climate crisis, we feel that thoroughly-tested and accessible ideas that can greatly reduce computational cost should be promoted to a wide audience of researchers.
+The use of *bsuite* can provide directed improvements in algorithms, from high-level model selection and improvement to lower-level debugging, testing, and hyperparameter tuning. Due to the current climate crisis, we feel that thoroughly-tested and accessible ideas that can reduce computational cost should be promoted to a wide audience of researchers.
 
 ### 6.2 Inclusive Computing Statement
 
-Many of the ideas in *bsuite* and this post are most helpful in the areas of low compute resources, due to more directed areas of improvment and selection. Due to the seemingly-increasing gap between compute power of various research teams, we feel that thoroughly-tested and accessible ideas that can greatly benefit teams with meagre compute power should be promoted to a wide audience of researchers.
+Many of the ideas in *bsuite* and this blog post are most helpful in regimes with low compute resources because of the targeted nature of these works. Due to the increasing gap between compute power of various research teams, we feel that thoroughly-tested and accessible ideas that can benefit teams with meagre compute power should be promoted to a wide audience of researchers.
 
 ## Acknowledgements
 {Redacted for peer-review}
