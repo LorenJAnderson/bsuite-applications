@@ -276,11 +276,12 @@ While some hyperparameters stay fixed, others must change throughout the course 
 The three experiments above can be extended by documenting the affect of varying hyperparameters on performance, especially in OTS implementations. This would help practitioners understand the effects of certain hyperparameters on the *bsuite* core  capabilities, allowing for a better initial hyperparameter choice when certain capabilities are necessary for the environment at hand. Another research direction is to determine if integrating a fast hyperparameter tuner on general environments such as *bsuite* into a hyperparameter tuner for single, complex environments would increase the speed of tuning on the fixed environment. Since the *bsuite* core capabilities are necessary in many complex environments, and initial pass to determine competency on *bsuite* would act as a first pass of the tuning algorithm.
 
 ## 4. Testing and Debugging
-Known to every practitioner, testing and debugging a program is neraly unavoidable. A common question in the RL development cycle is, "*What tests can I perform to verify that my agent is running as intended?*" Due to the prevalence of silent bugs in RL code and long runtimes, quick unit tests can be invaluable for the practitioner, as shown in successor work to *bsuite* ([Rajan & Hutter, 2019](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/19-NeurIPS-Workshop-MDP_Playground.pdf)). In this section, we show how *bsuite* can be used as a sanity check the expectations and assumptions of the implementation, which was mentioned as a use case of *bsuite* in the paper.
+Known to every RL practitioner, testing and debugging during the development cycle is nearly unavoidable. It is common to encounter silent bugs in RL code, where the program runs but the agent fails to learn because of an implementation error. Examples include incorrect preprocessing, incorrect hyperparameters, or missing algorithm additions. Quick unit tests can be invaluable for the RL practitioner, as shown in successor work to *bsuite* ([Rajan & Hutter, 2019](https://ml.informatik.uni-freiburg.de/wp-content/uploads/papers/19-NeurIPS-Workshop-MDP_Playground.pdf)). A corresponding question to ask during the testing and debugging phase is, "*What tests can I perform to verify that my agent is running as intended?*" In this section, we show how *bsuite* can be used as a sanity check the expectations and assumptions of the implementation, saving compute time and lessening the frustration of the practitioner (a very existential and limited quantity). In an effort to refrain from contrived examples, the two examples below highlight real-life scenarios where using *bsuite* could have saved the authors of this blog post hours of frustration in their own work.
 
-### 4.1 Missing Add-on
+### 4.1 Incorrect Hyperparameter
+As discussed in the previous section, hyperparameters are of major importance to the performance of a RL algorithm. A missing or incorrect hyperparameter will not necessarily prevent a program from running, but most such bugs will severely degrade performance. Using *bsuite* can quickly expose poor performance of an algorithm at a low cost to the practitioner.
 
-### 4.2 Incorrect Constant
+*Example*: Figure X shows the default PPO implementation against a PPO implementation with an erroneous learning rate of 1e-3. Many hyperparameters such as total training steps, minimum buffer size before training, steps until epsilon is fully annealed, and maximum buffer size are usually coded using scientific notation since they are so large; consequently, it is easy to forget the 'minus sign' in the coding of the learning rate and instead code the learning rate as 1e3. The results on *msuite* show that performance has degraded severely from an OTS implementation, and more investigation into the code is required. One of the authors of this blog post would have saved roughly a day of training a PPO agent in their own work had they realized this mistake.  
 
 <div style="text-align: center;">
 
@@ -290,7 +291,10 @@ Known to every practitioner, testing and debugging a program is neraly unavoidab
 
 </div>
 
-### 4.3 OTS Algorithm Testing
+### 4.2 OTS Algorithm Testing
+While the previous example used an OTS algorithm for comparison to illuminate silent bugs, it may be the case that the OTS algorithm could have a silent bug. Whether due to an incorrect library being used or a misunderstanding of the OTS algorithm, any silent bug in an OTS algorithm can be difficult to detect due to the codebase being written by another practitioner. Again, *bsuite* can be used to diagnose poor performance and elucidate a coding problem.
+
+*Example*: Figure X shows the results of the SB3 DQN with our default experimental hyperparameters and with the default SB3 hyperparameters on *msuite*. A core difference between the hyperparameters is the burn rate: the default SB3 hyperparameters perform 10K steps before learning takes place (e.g. backprop), while our hyperparameters start the learning much more quickly (Nathan). Since many of the 'easier' *msuite* environments only last 10K time steps, failure to learn anything during that time severely degrades performance, as shown. Noticing the default value of this hyperparameter in SB3 would have saved the authors roughly 10 hours of training time.
 
 <div style="text-align: center;">
 
@@ -300,8 +304,8 @@ Known to every practitioner, testing and debugging a program is neraly unavoidab
 
 </div>
 
-### 4.4 Summary and Future Work
-Debugging surely saves development time and lessens frustration of the practitioner. Future research directions are two sides to the same coin - using *bsuite* and logging bugs from poor performance, and creating directed unit tests to squash bugs. (Anything else?). For testing purposes, perhaps create a suite of increasing benchmarks to determine where the difficulty is. (intermediate between completely diagnostic and complex benchmarks) - does that fit here? A catalogue of specific algorithms and hyperparameters would help with testing (discussed previously). 
+### 4.3 Future Work
+The training time for a complete run of *bsuite* can take an hour on even the most basic algorithms. Considering that a few of the easiest *bsuite* environments could have shown poor performance in the above examples within mere minutes, one research avenue is to create a fast debugging system for reinforcement learning algorithms. In the spirit of *bsuite*, it should implement targeted experiments to provide actionable solutions for eliminating silent bugs. Such work would primarily act as a public good, but it could also help bridge the gap between RL theory and practice if it could embody the targeted nature of *bsuite*.
 
 ## 5. Model Improvement
 A natural milestone in the RL development cycle is getting an algorithm running bug-free with notable signs of learning. A common follow-up question to ask is "*How can I improve my model to yield better performance?*" The practitioner may consider choosing an entirely new model and repeating some of the above steps; usually, a more enticing option is directly improving the existing model by reusing its core structure and only making minor additions or modifications, an approach taken in the state-of-the-art RAINBOW DQN algorithm ([Hessel et al., 2018](https://ojs.aaai.org/index.php/AAAI/article/view/11796)). In this section, we discuss ideas regarding the improvement of pre-existing somewhat competent models.
@@ -318,7 +322,23 @@ A natural milestone in the RL development cycle is getting an algorithm running 
 
 ### 5.2 Decoupling or Adding Confidence
 
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar52.png)
+
+*Figure X. Comparison of PPO with FNN (default) and PPO with RNN (recurrent).*
+
+</div>
+
 ### 5.3 Determining Necessary Improvements
+
+<div style="text-align: center;">
+
+![](/home/loren/PycharmProjects/blogpost/writeup/images/radar53.png)
+
+*Figure X. Comparison of PPO with FNN (default) and PPO with RNN (recurrent).*
+
+</div>
 
 ### 5.4 Summary and Future Work
 
