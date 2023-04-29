@@ -1,0 +1,10 @@
+stable-baselines3
+bsuite
+tensorboard
+sb3-contrib
+numpy
+pandas
+termcolor~=2.1.0
+matplotlib
+dm-sonnet
+gym
